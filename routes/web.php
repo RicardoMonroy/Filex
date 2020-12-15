@@ -14,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Frontend
 Route::get('/', 'LandingController@index')->name('welcome');
 
+// Auth
 Auth::routes();
 
+// Admin
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+// Archivos
+Route::resource('files', 'FileController');

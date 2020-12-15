@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>{{ config('app.name', 'Filex') }}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
+        <title>Filex | {{ $titlePage }}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
 
         <meta name="description" content="Aplicación Filex, firma de contratos digitales">
         <meta name="author" content="Tooring">
@@ -40,8 +40,13 @@
         <link rel="stylesheet" href="{{ asset('backend/css/themes.css') }}">
         <!-- END Stylesheets -->
 
+        <!-- Font Awesome -->
+        <link href="{{ asset('backend/css/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
+
         <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
         <script src="{{ asset('backend/js/vendor/modernizr-respond.min.js') }}"></script>
+
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     </head>
     <!-- In the PHP version you can set the following options from the config file -->
     <!--
@@ -71,19 +76,16 @@
                             <h2 class="sidebar-header">Welcome</h2>
                         </li>
                         <li>
-                            <a href="{{ route('dashboard') }}" class=" active"><i class="fa fa-home"></i>Dashboard</a>
+                            <a href="{{ route('dashboard') }}" class="{{ $activePage == 'dashboard' ? ' active' : '' }}"><i class="fa fa-home"></i>Dashboard</a>
                         </li>
                         <li>
                             <h2 class="sidebar-header">Mis documentos</h2>
                         </li>
                         <li>
-                            <a href="page_special_timeline.html"><i class="fa fa-clock-o"></i>Por firmar</a>
+                            <a href="{{ route('files.index') }}" class="{{ $activePage == 'files' ? ' active' : '' }}"><i class="fa fa-file-pdf-o"></i>Mis Archivos</a>
                         </li>
                         <li>
-                            <a href="page_special_user_profile.html"><i class="fa fa-pencil-square"></i>Enviados</a>
-                        </li>
-                        <li>
-                            <a href="page_special_message_center.html"><i class="fa fa-envelope-o"></i>Recibidos</a>
+                            <a href="page_special_user_profile.html"><i class="fas fa-file-contract"></i>Mis Contratos</a>
                         </li>
 
                         <li>
@@ -487,6 +489,11 @@
                 });
             });
         </script>
+
+        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+        {!! Toastr::message() !!}
+
     </body>
 </html>
 
