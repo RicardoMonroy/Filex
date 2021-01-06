@@ -40,11 +40,11 @@
         <link rel="stylesheet" href="{{ asset('backend/css/themes.css') }}">
         <!-- END Stylesheets -->
 
-        <!-- Font Awesome -->
-        <link href="{{ asset('backend/css/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
-
         <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
         <script src="{{ asset('backend/js/vendor/modernizr-respond.min.js') }}"></script>
+
+        <!-- Font Awesome -->
+        <link href="{{ asset('backend/css/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
 
         <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     </head>
@@ -55,7 +55,7 @@
         'sidebar-right-pinned'                        for a right pinned sidebar (always visible > 1200px)
         'sidebar-left-pinned sidebar-right-pinned'    for both sidebars pinned (always visible > 1200px)
     -->
-    <body class="header-fixed-top sidebar-left-pinned">
+    <body class="header-fixed-top ">
         <!-- Left Sidebar -->
         <!-- In the PHP version you can set the following options from the config file -->
         <!-- If you add the class .enable-hover, then a small portion of left sidebar will be visible and it can be opened with a mouse hover (> 1200px) (may affect website performance) -->
@@ -85,7 +85,7 @@
                             <a href="{{ route('files.index') }}" class="{{ $activePage == 'files' ? ' active' : '' }}"><i class="fa fa-file-pdf-o"></i>Mis Archivos</a>
                         </li>
                         <li>
-                            <a href="page_special_user_profile.html"><i class="fas fa-file-contract"></i>Mis Contratos</a>
+                            <a href="{{ route('contracts.index') }}" class="{{ $activePage == 'contracts' ? ' active' : '' }}"><i class="fas fa-file-contract"></i>Mis Contratos</a>
                         </li>
 
                         <li>
@@ -123,7 +123,24 @@
                             <h2 class="sidebar-header">Administración</h2>
                         </li>
                         <li>
-                            <a href="page_special_message_center.html"><i class="fa fa-envelope-o"></i>Mi Perfil</a>
+                            <a href="#"><i class="fa fa-envelope-o"></i>Mi Perfil</a>
+                        </li>
+                        <li class="{{ $activePage == 'slider' ? ' active' : '' }}">
+                            <a href="#" class="menu-link"><i class="fa fa-paper-plane"></i>LandignPage</a>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('sliders.index') }}" class="{{ $activePage == 'slider' ? ' active' : '' }}">Sliders</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('about.edit', 1) }}" class="{{ $activePage == 'about' ? ' active' : '' }}">Nosotros</a>
+                                </li>
+                                <li>
+                                    <a href="#">Planes</a>
+                                </li>
+                                <li>
+                                    <a href="#">Contacto</a>
+                                </li>
+                            </ul>
                         </li>
 
                     </ul>
@@ -252,7 +269,7 @@
         <!-- Page Container -->
         <!-- In the PHP version you can set the following options from the config file -->
         <!-- Add the class .full-width for a full width page (100%, 1920px max width) -->
-        <div id="page-container">
+        <div id="page-container" class="full-width">
             <!-- Header -->
             <!-- In the PHP version you can set the following options from the config file -->
             <!-- Add the class .navbar-default or .navbar-inverse for a light or dark header respectively -->
@@ -385,15 +402,18 @@
 
         <!-- Include Jquery library from Google's CDN but if something goes wrong get Jquery from local file (Remove 'http:' if you have SSL) -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>!window.jQuery && document.write(decodeURI('%3Cscript src="js/vendor/jquery-1.11.1.min.js"%3E%3C/script%3E'));</script>
+        <script>!window.jQuery && document.write(decodeURI('%3Cscript src="{{ asset('js/vendor/jquery-1.11.1.min.js') }}"%3E%3C/script%3E'));</script>
 
         <!-- Bootstrap.js, Jquery plugins and custom Javascript code -->
         <script src="{{ asset('backend/js/vendor/bootstrap.min.js') }}"></script>
         <script src="{{ asset('backend/js/plugins.js') }}"></script>
         <script src="{{ asset('backend/js/main.js') }}"></script>
 
+        <!-- ckeditor.js, load it only in the page you would like to use CKEditor -->
+        <script src="{{ asset('backend/js/ckeditor/ckeditor.js') }}"></script>
+
         <!-- Javascript code only for this page -->
-        <script>
+        {{-- <script>
             $(function () {
                 // Set up timeline scrolling functionality
                 $('.timeline-con').slimScroll({height: 565, color: '#000000', size: '3px', touchScrollStep: 100, distance: '0'});
@@ -488,92 +508,10 @@
                     }
                 });
             });
-        </script>
+        </script> --}}
 
-        <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
         <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
         {!! Toastr::message() !!}
 
     </body>
 </html>
-
-{{-- <!doctype html>
-<html lang="">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title></title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
-</body>
-</html> --}}

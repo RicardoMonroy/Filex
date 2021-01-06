@@ -44,4 +44,12 @@ class User extends Authenticatable
     public function files(){
         return $this->hasMany(File::class);
     }
+
+    public function contract(){
+        return $this->hasMany(File::class);
+    }
+
+    public function signatures(){
+        return $this->hasMany(Signature::class);
+    }
 }

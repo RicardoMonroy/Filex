@@ -20,5 +20,13 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Tooring',
+            'email' => 'tooring@tooring.com.mx',
+            'password' => Hash::make('Tooring20'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

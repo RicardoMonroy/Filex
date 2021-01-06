@@ -4,51 +4,56 @@
     <head>
         <meta charset="utf-8">
 
-        <title>{{ config('app.name', 'Filex') }}</title>
+        <title>Filex | Login</title> <!-- TODO: Modificar etiquetas Meta de la app -->
 
-        <meta name="description" content="FreshUI is a Premium Web App and Admin Template created by pixelcave and published on Themeforest.">
-        <meta name="author" content="pixelcave">
+        <meta name="description" content="Aplicación Filex, firma de contratos digitales">
+        <meta name="author" content="Tooring">
         <meta name="robots" content="noindex, nofollow">
 
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="backend/img/favicon.ico">
-        <link rel="apple-touch-icon" href="backend/img/icon57.png" sizes="57x57">
-        <link rel="apple-touch-icon" href="backend/img/icon72.png" sizes="72x72">
-        <link rel="apple-touch-icon" href="backend/img/icon76.png" sizes="76x76">
-        <link rel="apple-touch-icon" href="backend/img/icon114.png" sizes="114x114">
-        <link rel="apple-touch-icon" href="backend/img/icon120.png" sizes="120x120">
-        <link rel="apple-touch-icon" href="backend/img/icon144.png" sizes="144x144">
-        <link rel="apple-touch-icon" href="backend/img/icon152.png" sizes="152x152">
+        <link rel="shortcut icon" href="img/favicon.ico">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon57.png') }}" sizes="57x57">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon72.png') }}" sizes="72x72">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon76.png') }}" sizes="76x76">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon114.png') }}" sizes="114x114">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon120.png') }}" sizes="120x120">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon144.png') }}" sizes="144x144">
+        <link rel="apple-touch-icon" href="{{ asset('backend/img/icon152.png') }}" sizes="152x152">
         <!-- END Icons -->
 
         <!-- Stylesheets -->
         <!-- Bootstrap is included in its original form, unaltered -->
-        <link rel="stylesheet" href="backend/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ asset('backend/css/bootstrap.css') }}">
 
         <!-- Related styles of various icon packs and javascript plugins -->
-        <link rel="stylesheet" href="backend/css/plugins.css">
+        <link rel="stylesheet" href="{{ asset('backend/css/plugins.css') }}">
 
         <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
-        <link rel="stylesheet" href="backend/css/main.css">
+        <link rel="stylesheet" href="{{ asset('backend/css/main.css') }}">
 
         <!-- Include a specific file here from css/themes/ folder to alter the default theme of the template -->
 
         <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
-        <link rel="stylesheet" href="backend/css/themes.css">
+        <link rel="stylesheet" href="{{ asset('backend/css/themes.css') }}">
         <!-- END Stylesheets -->
 
         <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
-        <script src="backend/js/vendor/modernizr-respond.min.js"></script>
+        <script src="{{ asset('backend/js/vendor/modernizr-respond.min.js') }}"></script>
+
+        <!-- Font Awesome -->
+        <link href="{{ asset('backend/css/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
+
+        <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     </head>
     <body>
         <!-- Header -->
         <header class="navbar navbar-default navbar-fixed-top">
             <!-- Header Brand -->
             <a href="{{ route('welcome')}}" class="navbar-brand">
-                <img src="{{ asset('backend/img/template/drop.png') }}" alt="FreshUI">
+                <img src="{{ asset('backend/img/template/brand.png') }}" alt="FreshUI">
                 <span>Filex</span>
             </a>
             <!-- END Header Brand -->

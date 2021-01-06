@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
 use App\File;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -26,7 +27,11 @@ class FileController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
-        return view('files.index', compact('files'));
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('files.index', compact('files', 'contracts'));
     }
 
     /**
@@ -36,7 +41,13 @@ class FileController extends Controller
      */
     public function create()
     {
-        return view('files.create');
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('files.create', compact('files', 'contracts'));
     }
 
     /**
@@ -49,7 +60,7 @@ class FileController extends Controller
     {
         $max_size = (int)ini_get('upload_max_filesize') * 100; // para aumentar el tamaño máximo de lo que permite PHP
         $all_ext = implode(',', $this->allExtensions());
-        $hoy = date("Y-m-d");
+        $hoy = date("Y-m-d H:i:s");
 
         $this->validate(request(), [
             'file' => 'required|file|mimes:'.$all_ext.'|max:'.$max_size
@@ -58,9 +69,9 @@ class FileController extends Controller
         $uploadFile = new File();
 
         $file = $request->file('file');
-        $name = $hoy.'-'.$file->getClientOriginalName();
-        $path = Storage::putFileAs($this->getUserFolder(), $request->file('file'), $name);
-
+        $name = str_replace(' ','-', $hoy.'-'.$file->getClientOriginalName());
+        $path = $this->getUserFolder() .'/' . $name;
+        // dd($path);
         if( Storage::putFileAs('/public/' . $this->getUserFolder() . '/', $file, $name )){
             $uploadFile::create([
                 'name' => $name,
@@ -81,9 +92,14 @@ class FileController extends Controller
      */
     public function show($id)
     {
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $file = File::find($id);
 
-        return view('files.show', compact('file'));
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('files.show', compact('file', 'files', 'contracts'));
     }
 
     /**
@@ -118,23 +134,33 @@ class FileController extends Controller
     public function destroy($id)
     {
         $file = File::findOrFail($id);
+        //dd(Storage::files($this->getUserFolder().'/', $file->file));
+        //dd($file->file, Storage::disk('public')->exists($this->getUserFolder().'/', $file->name));
 
-        if(Storage::disk('public')->exists($this->getUserFolder().'/', $file->name)){
-            Storage::disk('public')->delete($this->getUserFolder() . '/' . $file->name);
+
+        if(Storage::disk('public')->exists($this->getUserFolder().'/', $file->file))
+        {
+            // Storage::delete('/public/' . $this->getUserFolder().'/', $file->file);
+            Storage::disk('public')->delete($this->getUserFolder().'/', $file->file);
             $file->delete();
             Toastr::warning('Ya no lo veremos por aqui.','Archivo borrado');
             return redirect()->route('files.index');
-        }else{
+        }
+        else
+        {
+            dd('no encontrado');
             Toastr::warning('Lo lamentamos, no sabemos que pasó.','Algo salió mal');
             return redirect()->route('files.index');
         }
     }
 
-    private function allExtensions(){
+    private function allExtensions()
+    {
         return array_merge($this->doc_ext);
     }
 
-    private function getUserFolder(){
-        return Auth::id() . '-' . Auth::user()->name;
+    private function getUserFolder()
+    {
+        return str_replace(' ', '-', Auth::id() . '-' . Auth::user()->name);
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
+use App\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('dashboard', compact('files', 'contracts'));
     }
 }

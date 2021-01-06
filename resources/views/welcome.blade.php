@@ -207,63 +207,55 @@
         <div id="vertical-bullets" class="rev_slider fullwidthabanner white vertical-tpb" data-version="5.4.1">
             <ul>
                 <!-- SLIDE 1 -->
-                <li data-index="rs-01" data-transition="fade" data-slotamount="default" data-easein="Power100.easeIn" data-easeout="Power100.easeOut" data-masterspeed="2000" data-fsmasterspeed="1500" data-param1="01">
+                @foreach ($sliders as $slider)
+                <li data-index="rs-0{{ $slider->id }}" data-transition="fade" data-slotamount="default" data-easein="Power100.easeIn" data-easeout="Power100.easeOut" data-masterspeed="2000" data-fsmasterspeed="1500" data-param1="01">
                     <!-- MAIN IMAGE -->
 
-                    <img src="frontend/images/Banner1.png"  data-kenburns="on" data-duration="15000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10"  data-bgfit="cover" data-bgrepeat="no-repeat" data-bgposition="center center" class="rev-slidebg" alt="slider-image" data-no-retina>
+                    <img src="{{ asset('storage') }}/{{ $slider->banner }}"  data-kenburns="on" data-duration="15000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10"  data-bgfit="cover" data-bgrepeat="no-repeat" data-bgposition="center center" class="rev-slidebg" alt="slider-image" data-no-retina>
                     <div class="bg-overlay bg-black opacity-5"></div>
                     <!-- LAYER NR. 1 -->
                     <div class="tp-caption tp-resizeme rs-parallaxlevel-2"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['-80','-80','-65','-65']"
+                         data-x="['{{ $slider->margin }}','center','center','center']" data-hoffset="['0','0','0','0']"
+                         data-y="['middle','middle','middle','middle']" data-voffset="['-60','-60','-55','-55']"
                          data-width="none" data-height="none" data-type="text"
                          data-textAlign="['center','center','center','center']"
                          data-responsive_offset="on" data-start="1000"
                          data-frames='[{"delay":10,"speed":2000,"frame":"0","from":"y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;","mask":"x:0px;y:0px;s:inherit;e:inherit;","to":"o:1;","ease":"Power3.easeInOut"},{"delay":"wait","speed":280,"frame":"999","to":"opacity:0;","ease":"Power3.easeInOut"}]'>
-                        <p class="text-white alt-font font-18">¡Olvídate de los papeles!</p>
-                    </div>
-                    <!-- LAYER NR. 2 -->
-                    <div class="tp-caption tp-resizeme rs-parallaxlevel-3"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['-30','-30','-10','-10']"
-                         data-width="none" data-height="none" data-type="text"
-                         data-textAlign="['center','center','center','center']"
-                         data-responsive_offset="on" data-start="1000"
-                         data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
-                        <h1 class="text-white font-40 main-font font-weight-600 text-capitalize">Filex</h1>
+                        <p class="text-white alt-font font-18">{{ $slider->title }}</p>
                     </div>
                     <!-- LAYER NR. 3 -->
                     <div class="tp-caption tp-resizeme rs-parallaxlevel-3"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['20','20','30','30']"
+                         data-x="['{{ $slider->margin }}','center','center','center']" data-hoffset="['0','0','0','0']"
+                         data-y="['middle','middle','middle','middle']" data-voffset="['-5','-5','-5','-5']"
                          data-width="none" data-height="none" data-type="text"
                          data-textAlign="['center','center','center','center']"
                          data-responsive_offset="on" data-start="1000"
                          data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
-                        <h1 class="text-white font-40 main-font font-weight-600 text-capitalize"><span class="font-weight-200">Gestión de</span> <span>Firmas Digitales.</span>
+                    <h1 class="text-white font-40 main-font font-weight-600 text-capitalize"><span>{{ $slider->subtitle }}</span>
                         </h1>
                     </div>
                     <!-- LAYER NR. 4 -->
                     <div class="tp-caption tp-resizeme rs-parallaxlevel-2"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['95','95','100','100']"
+                         data-x="['{{ $slider->margin }}','center','center','center']" data-hoffset="['0','0','0','0']"
+                         data-y="['middle','middle','middle','middle']" data-voffset="['70','70','70','70']"
                          data-width="none" data-height="none" data-type="text"
                          data-textAlign="['center','center','center','center']"
                          data-responsive_offset="on" data-start="1500"
                          data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":2000,"to":"o:1;","delay":1500,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
-                        <p class="text-white alt-font font-18">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae egestas mi, vel dapi<br>bus diam. Mauris malesuada, nisl non rutrum commodo, sem magna.</p>
+                        <p class="text-white alt-font font-18">{{ $slider->paragraph }}</p>
                     </div>
                     <!-- LAYER NR. 5 -->
                     <div class="tp-caption tp-resizeme rs-parallaxlevel-2"
-                         data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
-                         data-y="['middle','middle','middle','middle']" data-voffset="['180','180','175','190']"
+                         data-x="['{{ $slider->margin }}','center','center','center']" data-hoffset="['0','0','0','0']"
+                         data-y="['middle','middle','middle','middle']" data-voffset="['155','155','150','150']"
                          data-width="['500','500','500','500']" data-textalign="['center','center','center','center']" data-type="text"
                          data-frames='[{"from":"y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;","mask":"x:0px;y:[100%];s:inherit;e:inherit;","speed":1500,"to":"o:1;","delay":2000,"ease":"Power4.easeInOut"},{"delay":"wait","speed":1000,"to":"y:[100%];","mask":"x:inherit;y:inherit;s:inherit;e:inherit;","ease":"Power2.easeInOut"}]'>
                         <a href="#about" class="scroll btn btn-medium btn-rounded btn-blue btn-hvr-strongBlue btn-hvr-up">Conócenos</a>
                     </div>
                 </li>
+                @endforeach
 
-                <!-- SLIDE 2 -->
+                {{-- <!-- SLIDE 2 -->
                 <li data-index="rs-02" data-transition="fade" data-slotamount="default" data-easein="Power100.easeIn" data-easeout="Power100.easeOut" data-masterspeed="2000" data-fsmasterspeed="1500" data-param1="02">
                     <!-- MAIN IMAGE -->
                     <img src="frontend/images/Banner2.png" data-kenburns="on" data-duration="13000" data-ease="Linear.easeNone" data-scalestart="100" data-scaleend="120" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="0 0" data-bgparallax="10"  data-bgfit="cover" data-bgrepeat="no-repeat" data-bgposition="center center" class="rev-slidebg" alt="slider-image" data-no-retina>
@@ -367,18 +359,7 @@
                     <div class="bg-overlay bg-black opacity-4"></div>
                     <div class="slider-overlay"></div>
                     <!-- Video -->
-                    {{-- <div class="rs-background-video-layer"
-                         data-forcerewind="on"
-                         data-volume="mute"
-                         data-videowidth="100%"
-                         data-videoheight="100vh"
-                         data-videomp4="frontend/video/slider-video.mp4"
-                         data-videopreload="auto"
-                         data-videoloop="loopandnoslidestop"
-                         data-forceCover="1"
-                         data-aspectratio="16:9"
-                         data-autoplay="true"
-                         data-autoplayonlyfirsttime="false"></div> --}}
+
                     <!-- LAYER NR. 1 -->
                     <div class="tp-caption tp-resizeme"
                          data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
@@ -428,7 +409,7 @@
                          data-whitespace="nowrap" data-transform_idle="o:1;" data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:1500;e:Power4.easeInOut;" data-transform_out="s:900;e:Power2.easeInOut;s:900;e:Power2.easeInOut;" data-start="1800" data-splitin="none" data-splitout="none" data-responsive_offset="on">
                         <a href="#contact" class="scroll btn btn-medium btn-rounded btn-blue btn-hvr-strongBlue btn-hvr-up">Learn More</a>
                     </div>
-                </li>
+                </li> --}}
 
             </ul>
         </div>
@@ -449,14 +430,29 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-lg-6 wow fadeInLeft" data-wow-delay="300ms">
-                <p class="text-blue font-weight-200 font-20">Con Filex</p>
-                <h1 class="main-font font-weight-600 text-black"><span>Podrás firmar <span class="text-strongBlue js-rotating">Contratos,Facturas,Cartas,Oficios</span></span> <span> de forma digital</span></h1>
+                <p class="text-blue font-weight-200 font-20">{{ $about->title }}</p>
+                <h1 class="main-font font-weight-600 text-black">
+                    <span>{{ $about->subtitleLeft }}
+                        <span class="text-strongBlue js-rotating">
+                            @foreach ($documents as $document)
+                                {{ $document->name }}
+                                @if ($document->id < $last)
+                                    <p>,</p>
+                                @else
+                                    <p></p>
+                                @endif
+                            @endforeach
+                        </span>
+                    </span>
+                    <span> {{ $about->subtitleRight }}
+                    </span>
+                </h1>
             </div>
 
             <div class="col-12 col-lg-6 m-ipad wow fadeInRight" data-wow-delay="300ms">
                 <div class="ml-md-4 pl-md-2 font-weight-200 text-grey font-18">
-                    <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. Nam porttitor justo sed mi finibus, vel tristique risus faucibus. </p>
-                    <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. </p>
+                    <p>{{ $about->paragraph }}</p>
+                    {{-- <p>Curabitur mollis bibendum luctus. Duis suscipit vitae dui sed suscipit. Vestibulum auctor nunc vitae diam eleifend, in maximus metus sollicitudin. Quisque vitae sodales lectus. </p> --}}
                 </div>
             </div>
         </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\About;
+use App\Slider;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -14,7 +16,11 @@ class LandingController extends Controller
           $plans = \Stripe\Plan::all();
 
         // dd($plans);
+        $sliders = Slider::all();
+        $about = About::find(1);
+        $documets = $about->documents;
+        $last = $documets->last()->id;
 
-        return view('welcome', ['plans' => $plans]);
+        return view('welcome', ['plans' => $plans, 'sliders' => $sliders, 'about' => $about, 'documents' => $documets, 'last' => $last]);
     }
 }
