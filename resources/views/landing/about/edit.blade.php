@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'about', 'titlePage' => __('Sobre nosotros')])
+@extends('layouts.app', ['activePage' => 'about', 'titlePage' => __('Nosotros')])
 
 @section('content')
 <!-- Dashboard Header -->
@@ -21,19 +21,19 @@
                     <!-- Inner Grid 1 -->
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="page_comp_charts.html" class="header-link">
+                            <a href="{{ route('files.index') }}" class="header-link">
                                 <h1 class="animation-pullDown">
                                     <strong>{{ $files->count() }}</strong><br><small>Archivos</small>
                                 </h1>
                             </a>
                         </div>
-                        {{-- <div class="col-xs-6">
-                            <a href="page_comp_charts.html" class="header-link">
+                        <div class="col-xs-6">
+                            <a href="{{ route('contracts.index') }}" class="header-link">
                                 <h1 class="animation-pullDown">
-                                    <strong>$795</strong><br><small>Profit Today</small>
+                                    <strong>{{ $contracts->count() }}</strong><br><small>Contratos</small>
                                 </h1>
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                     <!-- END Inner Grid 1 -->
                 </div>
@@ -66,7 +66,7 @@
 <ul class="breadcrumb breadcrumb-top">
     <li><i class="fa fa-paper-plane"></i></li>
     <li>Landigpage</li>
-    {{-- <li><a href="{{ route('about.index') }}">about</a></li> --}}
+    <li><a href="{{ route('about.index') }}">Nosotros</a></li>
     <li>Editar</li>
 </ul>
 <!-- END Dashboard Header -->
@@ -75,29 +75,17 @@
 <div class="row gutter30">
     <div class="col-md-12">
         <!-- First Column -->
-        <div class="col-md-12">
+        <form action="{{ route('about.update', $about->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+        @csrf
+        @method('PUT')
+
+        <div class="col-md-8">
 
             <div class="block">
                 <div class="block-title clearfix">
-                    {{-- <div class="block-options pull-right">
-                        <div class="btn-group btn-group-md">
-                            <form action="{{ route('about.destroy',$about->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" data-toggle="tooltip" title="Eliminar" class="btn btn-primary" data-original-title="Eliminar"><i class="fa fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </div> --}}
-                    {{-- <div class="block-options pull-right">
-                        <div class="btn-group btn-group-md">
-                            <a href="{{ route('about.edit', $about->id) }}" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Editar"><i class="fa fa-pencil-square-o"></i></a>
-                        </div>
-                    </div> --}}
                     <h2 class="pull-left">Datos</h2>
                 </div>
-                <form action="{{ route('about.update', $about->id) }}" method="post" enctype="multipart/form-data" class="form-horizontal">
-                @csrf
-                @method('PUT')
+
                 <h4 class="sub-header">Textos informativos</h4>
 
 
@@ -121,7 +109,7 @@
                                 <option value="{{ $document->name }}">{{ $document->name }}</option>
                             @endforeach
                         </select>
-                        <span class="help-block">Todos los documentos que apareceran (para añadir ir dar click <a href="" >aquí</a>)</span>
+                        <span class="help-block">Todos los documentos que apareceran (para añadir ir dar click <a href="{{ route('document.index') }}" >aquí</a>)</span>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="subtitleRight" name="subtitleRight" class="form-control" value="{{ $about->subtitleRight }}">
@@ -144,7 +132,7 @@
                     </div>
                 </div>
 
-                </form>
+
             </div>
             <!-- END Twitter Block -->
         </div>
@@ -152,21 +140,21 @@
         <!-- END First Column -->
 
         <!-- Second Column -->
-        {{-- <div class="col-md-6">
+        <div class="col-md-4">
             <!-- Updates Block -->
             <div class="block">
                 <!-- Updates Title -->
                 <div class="block-title">
                     <h2><i class="fa fa-paper-plane"></a></i> Portada</h2>
                 </div>
-                <h4 class="sub-header">Banner de fondo</h4>
+                <h4 class="sub-header">Imágen</h4>
 
-                <img width="100%" src="{{ asset('storage') }}/{{ $about->banner }}">
-                <h4 class="sub-header">Actualizar imágen </h4> <h5>Se recomienda uma iágen de 1920 x 1080</h5>
+                <img width="100%" src="{{ asset('storage') }}/{{ $about->picture }}">
+                <h4 class="sub-header">Actualizar imágen </h4> <h5>Se recomienda uma iágen de 765 x 554</h5>
                 <div class="form-group">
-                    <label class="col-md-2 control-label" for="banner">File input</label>
+                    <label class="col-md-2 control-label" for="picture">File input</label>
                     <div class="col-md-5">
-                        <input type="file" id="banner" name="banner">
+                        <input type="file" id="picture" name="picture">
                     </div>
                 </div>
                 <br><br>
@@ -175,8 +163,8 @@
 
             </div>
             <!-- END Updates Block -->
-        </div> --}}
-
+        </div>
+        </form>
         <!-- END Second Column -->
     </div>
 </div>

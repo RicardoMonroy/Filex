@@ -93,17 +93,10 @@
 
             <!-- Second Column -->
             <div class="col-md-4">
-
-
-                <!-- Twitter Block -->
                 <div class="block">
-                    <!-- Twitter Title -->
                     <div class="block-title">
                         <h2><i class="fa fa-info-circle"></i> Info</h2>
                     </div>
-                    <!-- END Twitter Title -->
-
-                    <!-- Twitter Content -->
                     <ul class="list-unstyled">
                         <li>
                             <h6><span class="label label-default"><i class="fa fa-check-circle"></i> Nombre</span></h6>
@@ -122,11 +115,25 @@
                             <p>{{ $file->user->email }}</p>
                         </li>
                     </ul>
-                    <!-- END Twitter Content -->
                 </div>
-                <!-- END Twitter Block -->
+
+                <div class="block">
+                    <div class="block-title">
+                        <h2><i class="fa fa-info-circle"></i> Acciones</h2>
+                    </div>
+
+                    <div class="list-group">
+                        <a href="{{ route('files.presign', $file->id) }}" class="list-group-item">
+                            <h4 class="list-group-item-heading">Firmar y enviar documento</h4>
+                            <p class="list-group-item-text">Sólo yo firmo de forma electrónica, y envar el documento por correo.</p>
+                        </a>
+                        <a href="javascript:void(0)" class="list-group-item">
+                            <h4 class="list-group-item-heading">Enviar invitación para firmar</h4>
+                            <p class="list-group-item-text">Enviar invitación a alguien para ambos firmar el documento.</p>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <!-- END Second Column -->
         </div>
 
     </div>

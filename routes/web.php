@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Archivos
     Route::resource('files', 'FileController');
+    Route::get('files/file/{id}', 'FileController@presign')->name('files.presign');
+    Route::post('files/sign', 'FileController@sign')->name("files.sign");
 
     // Contratos
     Route::resource('contracts', 'ContractController');
@@ -44,10 +46,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Firmas
     Route::post('signature', 'SignatureController@generatePDF')->name('signature.generate');
+    Route::get('saveImg/{id}', 'SignatureController@saveImg')->name('signature.saveImg');
 
+    // Perfil de Usuario
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 
     // Langing Admin
-    Route::resource('sliders', 'SliderController');
-    Route::resource('about', 'AboutController');
+    Route::resource('sliders', 'SliderController')->middleware('permission:admin.landing');
+    Route::resource('about', 'AboutController')->middleware('permission:admin.landing');
+    Route::resource('document', 'DocumentController')->middleware('permission:admin.landing');
+    Route::resource('contact', 'ContactController')->middleware('permission:admin.landing');
 });
-

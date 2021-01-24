@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\About;
+use App\Contract;
 use App\Document;
 use App\File;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -61,10 +64,14 @@ class AboutController extends Controller
     public function edit($id)
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
         $about = About::find($id);
         $documents = $about->documents;
 
-        return view('landing.about.edit', compact('about', 'files', 'documents'));
+        return view('landing.about.edit', compact('about', 'files', 'contracts', 'documents'));
     }
 
     /**
@@ -76,7 +83,25 @@ class AboutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $about = About::find($id);
+        $about->update($request->all());
+
+        if( $request->picture ){
+            $file = $request->file('picture');
+            $name = str_replace(' ','-', $file->getClientOriginalName());
+            $path = 'Images/' . $name;
+            Storage::putFileAs('/public/' . 'Images/', $file, $name );
+            $about::whereId($id)->update([
+                'title' => $request->title,
+                'subtitleLeft' => $request->subtitleLeft,
+                'subtitleRight' => $request->subtitleRight,
+                'paragraph' => $request->paragraph,
+                'picture' => $path,
+            ]);
+        }
+
+        Toastr::success('Se actualizó con éxito','Bien');
+        return redirect()->route('about.edit', compact('about'));
     }
 
     /**

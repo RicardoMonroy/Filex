@@ -15,8 +15,8 @@ class AboutTableSeeder extends Seeder
             'title' => 'Con Filex',
             'subtitleLeft' => 'Podras firmar',
             'subtitleRight' => 'de forma digital',
-            'paragraph' => 'Lorem Ipsum',
-            'picture' => 'img/'
+            'paragraph' => 'FILEX® es una plataforma 100% mexicana para la firma de documentos legales con firma electrónica, de una manera fácil, segura y legal.',
+            'picture' => 'Images/Brand1.png'
         ]);
     }
 }

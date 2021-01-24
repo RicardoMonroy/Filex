@@ -6,3 +6,7 @@
 <p>
     Mensaje: {{ $contract->message }}
 </p>
+<br><br>
+<p>Puedes acceder a tu zona de contratos en la aplicación de Filex mediante el siguiente botón:</p>
+<br>
+<a class="btn btn-primary" href="{{ route('contracts.index') }}">Acceder</a>

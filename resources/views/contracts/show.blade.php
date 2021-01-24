@@ -76,83 +76,83 @@
     @csrf
         <div class="block-title">
             <div class="block-options pull-right">
-                <div class="btn-group">
-                    <a href="javascript:void(0)" class="btn btn-primary" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
-                    <a href="javascript:void(0)" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Save"><i class="fa fa-floppy-o"></i></a>
-                    <a href="javascript:void(0)" class="btn btn-primary" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                </div>
+
             </div>
             <input type="hidden" name="contractName" id="contractName" value="{{ $contract->name }}">
-            <h2><i class="fa fa-file-text-o"></i> {{ $contract->name }}</h2>
+            <input type="hidden" name="contractId" id="contractId" value="{{ $contract->id }}">
+            <h2><i class="fas fa-file-contract"></i> {{ $contract->name }}</h2>
         </div>
-        <div class="row gutter30 block-section">
+        {{-- <div class="row gutter30 block-section">
             <div class="col-sm-6">
                 <input type="hidden" name="ownerName" id="ownerName" value="{{ $contract->owner->name }}">
                 <input type="hidden" name="ownerMail" id="ownerMail" value="{{ $contract->owner->email }}">
-                <input type="hidden" name="ownerLegalName" id="ownerLegalName" value="{{ $ownerSignature->legalName }}">
-                <input type="hidden" name="ownerRFC" id="ownerRFC" value="{{ $ownerSignature->rfc }}">
+                <input type="hidden" name="ownerLegalName" id="ownerLegalName" value="{{ isset($ownerSignature->legalName) ? $ownerSignature->legalName : ''}}">
+                <input type="hidden" name="ownerRFC" id="ownerRFC" value="{{ isset($ownerSignature->rfc) ? $ownerSignature->rfc : '' }}">
                 <input type="hidden" name="ownerSerial" id="ownerSerial" value="{{ $serialOwner }}">
-                <input type="hidden" name="ownerSignature" id="ownerSignature" value="{{ $ownerSignature->string }}">
-                <input type="hidden" name="ownerDateSign" id="ownerDateSign" value="{{ $ownerSignature->created_at->toFormattedDateString() }}">
+                <input type="hidden" name="ownerSignature" id="ownerSignature" value="{{ isset($ownerSignature->string) ? $ownerSignature->string : '' }}">
+                <input type="hidden" name="ownerDateSign" id="ownerDateSign" value="{{ isset($ownerSignature->created_at) ? $ownerSignature->created_at->toFormattedDateString() : '' }}">
 
                 <h3 class="sub-header"><i class="fa fa-user"></i> {{ $contract->owner->name }}</h3>
                 <address>
                     <strong>Nombre</strong> {{$contract->owner->name}}<br>
-                    <strong>Nombre Legal</strong> {{ $ownerSignature->legalName }}<br>
-                    <strong>RFC</strong> {{ $ownerSignature->rfc }}<br>
+                    <strong>Nombre Legal</strong> {{ isset($ownerSignature->legalName) ? $ownerSignature->legalName : '' }}<br>
+                    <strong>RFC</strong> {{ isset($ownerSignature->rfc) ? $ownerSignature->rfc : '' }}<br>
                     <strong>No. de Serie</strong> {{ $serialOwner }}<br><br>
                     <strong>Firma:</strong><br>
-                    <textarea id="default-textarea" name="default-textarea" rows="6" class="form-control" placeholder="" disabled>{{ $ownerSignature->string }}</textarea>
+                    <textarea id="default-textarea" name="default-textarea" rows="6" class="form-control" placeholder="" disabled>{{ isset($ownerSignature->string) ? $ownerSignature->string : '' }}</textarea>
                 </address>
             </div>
             <div class="col-sm-6">
-                <input type="hidden" name="guestName" id="guestName" value="{{ $contract->guest->name }}">
-                <input type="hidden" name="guestMail" id="guestMail" value="{{ $contract->guest->email }}">
-                <input type="hidden" name="guestLegalName" id="guestLegalName" value="{{ $guestSignature->legalName }}">
-                <input type="hidden" name="guestRFC" id="guestRFC" value="{{ $guestSignature->rfc }}">
+                <input type="hidden" name="guestName" id="guestName" value="{{ isset($contract->guest->name) ? $contract->guest->name : 'Pendiente...' }}">
+                <input type="hidden" name="guestMail" id="guestMail" value="{{ isset($contract->guest->email) ? $contract->guest->email : 'Pendiente...' }}">
+                <input type="hidden" name="guestLegalName" id="guestLegalName" value="{{ isset($guestSignature->legalName) ? $guestSignature->legalName : '' }}">
+                <input type="hidden" name="guestRFC" id="guestRFC" value="{{ isset($guestSignature->rfc) ? $guestSignature->rfc : '' }}">
                 <input type="hidden" name="guestSerial" id="guestSerial" value="{{ $serialGuest }}">
-                <input type="hidden" name="guestSignature" id="guestSignature" value="{{ $guestSignature->string }}">
-                <input type="hidden" name="guestDateSign" id="guestDateSign" value="{{ $guestSignature->created_at->toFormattedDateString() }}">
+                <input type="hidden" name="guestSignature" id="guestSignature" value="{{ isset($guestSignature->string) ? $guestSignature->string : '' }}">
+                <input type="hidden" name="guestDateSign" id="guestDateSign" value="{{ isset($guestSignature->created_at) ? $guestSignature->created_at->toFormattedDateString() : '' }}">
 
-                <h3 class="sub-header text-right">{{ $contract->guest->name }} <i class="fa fa-user"></i></h3>
+                <h3 class="sub-header text-right">{{ isset($contract->guest->name) ? $contract->guest->name : 'Pendiente...' }} <i class="fa fa-user"></i></h3>
                 <address class="text-right">
-                    <strong>Nombre</strong> {{$contract->guest->name}}<br>
-                    <strong>Nombre Legal</strong> {{ $guestSignature->legalName }}<br>
-                    <strong>RFC</strong> {{ $guestSignature->rfc }}<br>
+                    <strong>Nombre</strong> {{isset($contract->guest->name) ? $contract->guest->name : 'Pendiente...'}}<br>
+                    <strong>Nombre Legal</strong> {{ isset($guestSignature->legalName) ? $guestSignature->legalName : '' }}<br>
+                    <strong>RFC</strong> {{ isset($guestSignature->rfc) ? $guestSignature->rfc : '' }}<br>
                     <strong>No. de Serie</strong> {{ $serialGuest }}<br><br>
                     <strong>Firma:</strong><br>
-                    <textarea id="default-textarea" name="default-textarea" rows="6" class="form-control" placeholder="" disabled>{{ $guestSignature->string }}</textarea>
+                    <textarea id="default-textarea" name="default-textarea" rows="6" class="form-control" placeholder="" disabled>{{ isset($guestSignature->string) ? $guestSignature->string : '' }}</textarea>
                 </address>
             </div>
-        </div>
+        </div> --}}
         <div class="table-responsive">
             <table class="table table-bordered table-vcenter">
                 <thead>
                     <tr>
                         <th style="width: 50%;">Firmas</th>
-                        <th>Correo</th>
-                        <th class="text-center">Firmado</th>
+                        <th>Firma Digital</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <h4>{{ $contract->owner->name }}</h4>
-                            <span class="label label-info">{{ $ownerSignature->rfc }}</span>
-                            <span class="label label-success">Propietario del contrato</span>
-                        </td>
-                        <td>{{ $contract->owner->email }}</td>
-                        <td class="text-center"><span class="label label-default">{{ $ownerSignature->created_at->toFormattedDateString() }}</span></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4>{{ $contract->guest->name }}</h4>
-                            <span class="label label-info">{{ $guestSignature->rfc }}</span>
-                            <span class="label label-success">Invitado a firmar</span>
-                        </td>
-                        <td>{{ $contract->guest->email }}</td>
-                        <td class="text-center"><span class="label label-default">{{ $guestSignature->created_at->toFormattedDateString() }}</span></td>
-                    </tr>
+                    @foreach ($signatures as $signature)
+                        <input type="hidden" name="Name{{ $loop->iteration }}" id="Name{{ $loop->iteration }}" value="{{ $signature->user->name }}">
+                        <input type="hidden" name="Mail{{ $loop->iteration }}" id="Mail{{ $loop->iteration }}" value="{{ $signature->user->email }}">
+                        <input type="hidden" name="LegalName{{ $loop->iteration }}" id="LegalName{{ $loop->iteration }}" value="{{ $signature->legalName }}">
+                        <input type="hidden" name="RFC{{ $loop->iteration }}" id="RFC{{ $loop->iteration }}" value="{{ $signature->rfc }}">
+                        <input type="hidden" name="Serial{{ $loop->iteration }}" id="Serial{{ $loop->iteration }}" value="{{ $signature->serialNumber }}">
+                        <input type="hidden" name="Signature{{ $loop->iteration }}" id="Signature{{ $loop->iteration }}" value="{{ $signature->string }}">
+                        {{-- <input type="hidden" name="DateSign" id="DateSign" value="{{ $signature->created_at->toFormattedDateString() }}"> --}}
+                        <tr>
+                            <td>
+                                <h4>{{ $signature->user->name }}</h4>
+                                <h5>{{ $signature->user->email }}</h5>
+                                <span class="label label-info">RFC: {{ $signature->rfc }}</span><br>
+                                <span class="label label-success">Nombre Legal: {{ $signature->legalName }}</span><br>
+                                <span class="label label-warning">No. de Serie SCD: {{ $signature->serialNumber }}</span>
+                            </td>
+                            <td>
+                                <textarea id="default-textarea" name="default-textarea" rows="6" class="form-control" placeholder="" disabled>{{ $signature->string }}</textarea>
+                            </td>
+                        </tr>
+                        <input type="hidden" name="loop" id="loop" value="{{ $loop->last }}">
+                    @endforeach
                 </tbody>
             </table>
         </div>

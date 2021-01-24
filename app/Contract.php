@@ -11,12 +11,18 @@ class Contract extends Model
         'file_path',
         // 'signer_one_name',
         // 'signer_one_mail',
-        'signer_two_name',
+        'guest_id',
         'signer_two_mail',
+        'guest_id3',
+        'signer_Tree_mail',
+        'guest_id4',
+        'signer_Four_mail',
+        'guest_id5',
+        'signer_Five_mail',
         'message',
         'file_id',
         'owner_id',
-        'guest_id'
+        'guests_email'
     ]);
 
     public function owner(){
@@ -34,6 +40,10 @@ class Contract extends Model
 
     public function signatures(){
         return $this->hasMany(Signature::class);
+    }
+
+    public function signeds(){
+        return $this->hasMany(Signed::class);
     }
 
 }

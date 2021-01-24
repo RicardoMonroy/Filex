@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\About;
+use App\Contact;
 use App\Slider;
 use Illuminate\Http\Request;
 
@@ -19,8 +20,14 @@ class LandingController extends Controller
         $sliders = Slider::all();
         $about = About::find(1);
         $documets = $about->documents;
-        $last = $documets->last()->id;
+        $last = $documets->last()->id; // Variable contador para saber el último tipo de documento.
+        $contact = Contact::find(1);
 
-        return view('welcome', ['plans' => $plans, 'sliders' => $sliders, 'about' => $about, 'documents' => $documets, 'last' => $last]);
+        return view('welcome', ['plans' => $plans,
+                                'sliders' => $sliders,
+                                'about' => $about,
+                                'documents' => $documets,
+                                'last' => $last,
+                                'contact' => $contact]);
     }
 }

@@ -24,7 +24,31 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Tooring',
             'email' => 'tooring@tooring.com.mx',
-            'password' => Hash::make('Tooring20'),
+            'password' => Hash::make('Tooring21'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Administrator',
+            'email' => 'admin@filex.com',
+            'password' => Hash::make('Filex@21'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Basic Plan',
+            'email' => 'basic@filex.com',
+            'password' => Hash::make('Filex@21'),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Premium Plan',
+            'email' => 'premium@filex.com',
+            'password' => Hash::make('Filex@21'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

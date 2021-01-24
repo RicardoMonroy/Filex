@@ -488,7 +488,7 @@
         </div>
         <!-- About Image -->
         <div class="d-flex justify-content-center wow bounceInLeft" data-wow-delay="300ms">
-            <img src="frontend/images/Brand1.png" alt="About-Us Plant">
+            <img src="{{ asset('storage') }}/{{ $about->picture }}" alt="About-Us Plant" width="765">
         </div>
     </div>
 </section>
@@ -901,18 +901,18 @@
         <div class="row">
             <div class="col-12 col-lg-6 contact-details text-md-left">
                 <div class="font-15 alt-font light-grey text-center text-lg-left">
-                    Puedes ponerte en contacto con nosotros, podemos resolver tus dudas.
+                    {{ $contact->paragraph }}
                 </div>
                 <div class="row mt-5 wow fadeIn" data-wow-delay="200ms">
                     <!-- Address-Box -->
                     <div class="col-12 col-md-6 text-center text-lg-left">
                         <h4 class="main-font text-blue font-16 font-weight-600">Dirección</h4>
-                        <p class="alt-font font-14 light-grey mt-3">123 calle , CDMX, México. </p>
+                        <p class="alt-font font-14 light-grey mt-3">{{ $contact->address }} </p>
                     </div>
                     <!-- Phone-Box -->
                     <div class="col-12 col-md-6 pt-5 pt-md-0 wow fadeIn text-center text-lg-left" data-wow-delay="400ms">
                         <h4 class="main-font text-blue font-16 font-weight-600">Teléfono</h4>
-                        <p class="alt-font font-14 light-grey mt-3">Oficina : 01800 1234567 Movil : 1234567890 </p>
+                        <p class="alt-font font-14 light-grey mt-3">Oficina : {{ $contact->addressPhone }} <br> Movil : {{ $contact->addressMovil }} </p>
                     </div>
                 </div>
 
@@ -920,12 +920,12 @@
                     <!-- Email-Box -->
                     <div class="col-12 col-md-6 wow fadeIn text-center text-lg-left" data-wow-delay="600ms">
                         <h4 class="main-font text-blue font-16 font-weight-600">Email</h4>
-                        <p class="alt-font font-14 light-grey mt-3">Email : admin@filex.com.mx Info : info@filex.com.mx </p>
+                        <p class="alt-font font-14 light-grey mt-3">Contacto : <a href="mailto:{{ $contact->emailContact }}">{{ $contact->emailContact }}</a> <br> Ventas : <a href="mailto:{{ $contact->emailSales }}">{{ $contact->emailSales }}</a> </p>
                     </div>
                     <!-- Support-Box -->
                     <div class="col-12 col-md-6 pt-5 pt-md-0 wow fadeIn text-center text-lg-left" data-wow-delay="800ms">
                         <h4 class="main-font text-blue font-16 font-weight-600">Soporte</h4>
-                        <p class="alt-font font-14 light-grey mt-3">Soporte : info@filex.com.mx Ventas : sales@filex.com.mx</p>
+                        <p class="alt-font font-14 light-grey mt-3">Soporte : <a href="mailto:{{ $contact->emailSupport }}">{{ $contact->emailSupport }}</a></p>
                     </div>
                 </div>
             </div>
@@ -964,7 +964,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-large strongBlue-long-btn rounded-pill w-100 btn-hvr-up btn-hvr-blue mt-4 contact_btn" id="submit_btn">SUBMIT REQUEST</button>
+                            <button type="button" class="btn btn-large strongBlue-long-btn rounded-pill w-100 btn-hvr-up btn-hvr-blue mt-4 contact_btn" id="submit_btn">ENVIAR</button>
                         </div>
                     </div>
                 </form>

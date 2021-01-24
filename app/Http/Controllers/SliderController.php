@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
 use App\File;
 use App\Slider;
 use Brian2694\Toastr\Facades\Toastr;
@@ -19,9 +20,12 @@ class SliderController extends Controller
     public function index()
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
         $sliders = Slider::all();
 
-        return view('landing.sliders.index', compact('files', 'sliders'));
+        return view('landing.sliders.index', compact('files', 'sliders', 'contracts'));
     }
 
     /**
@@ -32,8 +36,11 @@ class SliderController extends Controller
     public function create()
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
 
-        return view('landing.sliders.create', compact('files'));
+        return view('landing.sliders.create', compact('files', 'contracts'));
     }
 
     /**
@@ -46,6 +53,9 @@ class SliderController extends Controller
     {
         // dd('store');
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
         $slider = new Slider;
 
         $file = $request->file('banner');
@@ -61,7 +71,7 @@ class SliderController extends Controller
         }
 
         Toastr::success('Se añadió un nuevo slide','Bien hecho!');
-        return redirect()->route('sliders.index', compact('files'));
+        return redirect()->route('sliders.index', compact('files', 'contracts'));
     }
 
     /**
@@ -73,9 +83,12 @@ class SliderController extends Controller
     public function show($id)
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
         $slider = Slider::find($id);
 
-        return view('landing.sliders.show', compact('files', 'slider'));
+        return view('landing.sliders.show', compact('files', 'slider', 'contracts'));
     }
 
     /**
@@ -87,9 +100,12 @@ class SliderController extends Controller
     public function edit($id)
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
         $slider = Slider::find($id);
 
-        return view('landing.sliders.edit', compact('files', 'slider'));
+        return view('landing.sliders.edit', compact('files', 'slider', 'contracts'));
     }
 
     /**
@@ -104,12 +120,12 @@ class SliderController extends Controller
         $slider = Slider::find($id);
         $slider->update($request->all());
 
-        if( $request->file_exists ){
+        if( $request->banner ){
             $file = $request->file('banner');
             $name = str_replace(' ','-', $file->getClientOriginalName());
             $path = 'Sliders/' . $name;
             Storage::putFileAs('/public/' . 'Sliders/', $file, $name );
-            $slider::create([
+            $slider::whereId($id)->update([
                 'title' => $request->title,
                 'subtitle' => $request->subtitle,
                 'paragraph' => $request->paragraph,

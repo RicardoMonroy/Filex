@@ -64,42 +64,66 @@ class ContractController extends Controller
         }else{
             $IdTwo = $request->IdTwo;
         }
+
+        $name = $request->name;
+        $path = $request->fileName;
+        $message = $request->message;
+        $file_id = $request->fileId;
+        $owner_id = $request->IdOne;
+
+        if(!isset($request->emailTwo)){
+            $guest_id = NULL;
+            $signer_Two_mail = NULL;
+        }else{
+            $guest_id = $request->IdTwo;
+            $signer_Two_mail = $request->emailTwo;
+            $receivers = [$signer_Two_mail];
+        }
+
+        if(!isset($request->emailTree)){
+            $guest_id3 = NULL;
+            $signer_Tree_mail = NULL;
+        }else{
+            $guest_id3 = $request->IdTree;
+            $signer_Tree_mail = $request->emailTree;
+            $receivers = [$signer_Two_mail, $signer_Tree_mail];
+        }
+
+        if(!isset($request->emailFour)){
+            $guest_id4 = NULL;
+            $signer_Four_mail = NULL;
+        }else{
+            $guest_id4 = $request->IdFour;
+            $signer_Four_mail = $request->emailFour;
+            $receivers = [$signer_Two_mail, $signer_Tree_mail, $signer_Four_mail];
+        }
+
+        if(!isset($request->emailFive)){
+            $guest_id5 = NULL;
+            $signer_Five_mail = NULL;
+        }else{
+            $guest_id5 = $request->IdFive;
+            $signer_Five_mail = $request->emailFive;
+            $receivers = [$signer_Two_mail, $signer_Tree_mail, $signer_Four_mail, $signer_Five_mail];
+        }
+
         $contract = Contract::create([
-            'name' => $request->name,
-            'file_path' => $request->fileName,
-            // 'signer_one_name' => $request->signerOne,
-            // 'signer_one_mail' => $request->emailOne,
-            'signer_two_name' => $request->signerTwo,
-            'signer_two_mail' => $request->emailTwo,
-            'message' => $request->message,
-            'file_id' => $request->fileId,
-            'owner_id' => $request->IdOne,
-            'guest_id' => $IdTwo
+            'name' => $name,
+            'file_path' => $path,
+            'guest_id' => $guest_id,
+            'signer_two_mail' => $signer_Two_mail,
+            'guest_id3' => $guest_id3,
+            'signer_Tree_mail' => $signer_Tree_mail,
+            'guest_id4' => $guest_id4,
+            'signer_Four_mail' => $signer_Four_mail,
+            'guest_id5' => $guest_id5,
+            'signer_Five_mail' => $signer_Five_mail,
+            'message' => $message,
+            'file_id' => $file_id,
+            'owner_id' => $owner_id
         ]);
 
-        // $document = new Document([
-        //     // 'original_hash' => hash('sha256', file_get_contents($request->file_path)),
-        //     // 'name' => $request->fileName,
-        //     // 'file_path' => $request->file_path,
-        //     'file_path' => 'http://www.aliat.org.mx/BibliotecasDigitales/derecho_y_ciencias_sociales/Derecho_civil_III.pdf',
-        //     'signatories' => [
-        //       [
-        //         'name' => $request->signerOne,
-        //         'email' => $request->emailOne,
-        //         'tax_id' =>  'AAA010101AAA'
-        //       ],
-        //       [
-        //         'name' => $request->signerTwo,
-        //         'email' => $request->emailTwo,
-        //         'tax_id' =>  'AAA010102AAA'
-        //       ]
-        //     ]
-        //   ]);
-
-        //   $document->save();
-
-
-        Mail::to($request->emailTwo)->send(new SendInvitation($contract));
+        Mail::to($receivers)->send(new SendInvitation($contract));
 
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
@@ -115,31 +139,46 @@ class ContractController extends Controller
      */
     public function show($id)
     {
-
-        $contract = Contract::find($id);
-        $contractId = $contract->id;
-        $ownerId = $contract->owner_id;
-        $guestId = $contract->guest_id;
-        // dd($ownerId);
-
-        $ownerSignature = $contract->signatures()
-            ->where('user_id', $ownerId)
-            ->where('contract_id', $contractId)
-            ->get();
-        $ownerSignature = $ownerSignature->first();
-        $guestSignature = Signature::where('contract_id', $contractId)
-            ->where('user_id', $guestId)
-            ->get();
-        $guestSignature = $guestSignature->first();
-        $serialOwner = $this->hexToStr($ownerSignature->serialNumber);
-        $serialGuest = $this->hexToStr($guestSignature->serialNumber);
-
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
             ->orWhere('guest_id', Auth::user()->id)
             ->get();
 
-        return view('contracts.show', compact('contracts', 'contract', 'files', 'ownerSignature', 'guestSignature', 'serialOwner', 'serialGuest'));
+        $contract = Contract::find($id);
+
+        $contractId = $contract->id;
+        $ownerId = $contract->owner_id;
+        $guestId = $contract->guest_id;
+
+        $ownerSignature = $contract->signatures()
+            ->where('user_id', $ownerId)
+            ->where('contract_id', $contractId)
+            ->get();
+
+        $ownerSignature = $ownerSignature->first();
+        $guestSignature = Signature::where('contract_id', $contractId)
+            ->where('user_id', $guestId)
+            ->get();
+
+        $guestSignature = $guestSignature->first();
+
+        try {
+            $serialOwner = $this->hexToStr($ownerSignature->serialNumber);
+        } catch (Exception $exception) {
+            $serialOwner = 0;
+        }
+
+        try {
+            $serialGuest = $this->hexToStr($guestSignature->serialNumber);
+        } catch (Exception $exception) {
+            $serialGuest = 0;
+        }
+        // $serialOwner = $this->hexToStr($ownerSignature->serialNumber);
+        // $serialGuest = $this->hexToStr($guestSignature->serialNumber);
+
+        $signatures = $contract->signatures;
+
+        return view('contracts.show', compact('signatures','contracts', 'contract', 'files', 'ownerSignature', 'guestSignature', 'serialOwner', 'serialGuest'));
     }
 
     /**
@@ -196,6 +235,7 @@ class ContractController extends Controller
      */
     public function confirm(Request $request)
     {
+        // dd($request->all());
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
             ->orWhere('guest_id', Auth::user()->id)
@@ -204,18 +244,6 @@ class ContractController extends Controller
         $owner = Auth::user();
         $name = $request->name;
 
-        if($guest = User::where('email', $request->email)->first()){
-            $guest_name = User::where('email', $request->email)->first()->name;
-            $guest_email = User::where('email', $request->email)->first()->email;
-            $guest_id = User::where('email', $request->email)->first()->id;
-            $guest_info = 1;
-        }else{
-            $guest_name = "Nombre del invitado";
-            $guest_email = $request->email;
-            $guest_id = 0;
-            $guest_info = 0;
-        }
-
         if($file = File::where('id', $request->file)->first()){
             $file = File::where('id', $request->file)->first();
             $file_path = config('app.url').Storage::url($file->file);
@@ -223,9 +251,71 @@ class ContractController extends Controller
             $file = "Algo salió mal...";
         }
 
+        // Invitado estándar
+        if($guest = User::where('email', $request->email)->first()){
+            $guest_name = User::where('email', $request->email)->first()->name;
+            $guest_email = User::where('email', $request->email)->first()->email;
+            $guest_id = User::where('email', $request->email)->first()->id;
+            $guest_info = 1;
+        }else{
+            $guest_name = "Invitado sin registrar";
+            $guest_email = $request->email;
+            $guest_id = 0;
+            $guest_info = 0;
+        }
+
+        if($request->email1){
+            // Invitado 1
+            if($guest = User::where('email', $request->email1)->first()){
+                $guest_name1 = User::where('email', $request->email1)->first()->name;
+                $guest_email1 = User::where('email', $request->email1)->first()->email;
+                $guest_id1 = User::where('email', $request->email1)->first()->id;
+                $guest_info1 = 1;
+            }else{
+                $guest_name1 = "Invitado sin registrar";
+                $guest_email1 = $request->email1;
+                $guest_id1 = 0;
+                $guest_info1 = 0;
+            }
 
 
-        return view('contracts.confirm', compact('files', 'contracts','owner', 'guest_name', 'guest_email', 'guest_id', 'guest_info', 'name', 'file', 'file_path'));
+            if($request->email2){
+                // Invitado 2
+                if($guest = User::where('email', $request->email2)->first()){
+                    $guest_name2 = User::where('email', $request->email2)->first()->name;
+                    $guest_email2 = User::where('email', $request->email2)->first()->email;
+                    $guest_id2 = User::where('email', $request->email2)->first()->id;
+                    $guest_info2 = 1;
+                }else{
+                    $guest_name2 = "Invitado sin registrar";
+                    $guest_email2 = $request->email2;
+                    $guest_id2 = 0;
+                    $guest_info2 = 0;
+                }
+
+                if($request->email3){
+                    // Invitado 3
+                    if($guest = User::where('email', $request->email3)->first()){
+                        $guest_name3 = User::where('email', $request->email3)->first()->name;
+                        $guest_email3 = User::where('email', $request->email3)->first()->email;
+                        $guest_id3 = User::where('email', $request->email3)->first()->id;
+                        $guest_info3 = 1;
+                    }else{
+                        $guest_name3 = "Invitado sin registrar";
+                        $guest_email3 = $request->email3;
+                        $guest_id3 = 0;
+                        $guest_info3 = 0;
+                    }
+                    return view('contracts.confirm', compact('files','contracts','owner','guest_name','guest_email','guest_id','guest_info','guest_name1','guest_email1','guest_id1','guest_info1','guest_name2','guest_email2','guest_id2','guest_info2','guest_name3','guest_email3','guest_id3','guest_info3','name','file','file_path'));
+                }
+
+                return view('contracts.confirm', compact('files','contracts','owner','guest_name','guest_email','guest_id','guest_info','guest_name1','guest_email1','guest_id1','guest_info1','guest_name2','guest_email2','guest_id2','guest_info2','name','file','file_path'));
+            }
+
+            return view('contracts.confirm', compact('files','contracts','owner','guest_name','guest_email','guest_id','guest_info','guest_name1','guest_email1','guest_id1','guest_info1','name','file','file_path'));
+        }
+
+        return view('contracts.confirm', compact('files','contracts','owner','guest_name','guest_email','guest_id','guest_info','name','file','file_path'));
     }
 
     public function presign($id)

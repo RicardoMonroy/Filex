@@ -22,8 +22,22 @@ class CreateContractsTable extends Migration
             // $table->string('signer_one_name'); // Tentativo a desaparecer
             // $table->string('signer_one_mail'); // Tentativo a desaparecer
 
-            $table->string('signer_two_name');
-            $table->string('signer_two_mail');
+            // $table->string('signer_two_name');
+            $table->unsignedBigInteger('guest_id')->nullable();
+            $table->foreign('guest_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('signer_two_mail')->nullable();
+
+            $table->unsignedBigInteger('guest_id3')->nullable();
+            $table->foreign('guest_id3')->references('id')->on('users')->onDelete('cascade');
+            $table->string('signer_Tree_mail')->nullable();
+
+            $table->unsignedBigInteger('guest_id4')->nullable();
+            $table->foreign('guest_id4')->references('id')->on('users')->onDelete('cascade');
+            $table->string('signer_Four_mail')->nullable();
+
+            $table->unsignedBigInteger('guest_id5')->nullable();
+            $table->foreign('guest_id5')->references('id')->on('users')->onDelete('cascade');
+            $table->string('signer_Five_mail')->nullable();
 
             $table->text('message')->nullable();
 
@@ -33,8 +47,7 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unsignedBigInteger('guest_id')->nullable();
-            $table->foreign('guest_id')->references('id')->on('users')->onDelete('cascade');
+
 
             $table->timestamps();
         });

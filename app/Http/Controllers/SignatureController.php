@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
+use App\File;
+use App\Signed;
+use Brian2694\Toastr\Facades\Toastr;
 use Dompdf\Dompdf;
+use Elibyy\TCPDF\TCPDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\Tfpdf\Fpdi as TfpdfFpdi;
 
@@ -12,75 +18,183 @@ class SignatureController extends Controller
     public function generatePDF(Request $request)
     {
         // dd($request->all());
-
         $data['title'] = 'Contrato firmado';
-		$data['css_files'] = [asset('backend/css/main.css'),];
-        // $html = $this->load->view('layouts/pdf', $data, true);
+        $data['css_files'] = [asset('backend/css/main.css'),];
         $html = '
                 <style>
                     table{
-                        border: 0.5 solid #000000;
+                        border-bottom: 0.1 solid #000000;
                         width: 100%;
+                        text-align: center;
                     }
                     textarea{
                         border: none;
                         font-size: 0.8em;
-                        min-height: 8em;
+                        min-height: 4em;
                     }
                 </style>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <table>
                     <thead>
                         <tr>
-                            <th>Firma del contrato: '.$request->contractName.'</th>
+                            <th>Firmas del contrato: '.$request->contractName.'</th>
                         </tr>
                     </thead>
                 </table>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 50%;">Propietario</th>
-                            <th>Invitado</th>
-                        </tr>
-                    </thead>
+                ';
+
+        if(isset($request->Name1)){
+            $html .= '
+            <table>
                     <tbody>
                         <tr>
-                            <td><strong>Nombre: </strong>'.$request->ownerName.'</td>
-                            <td><strong>Nombre: </strong>'.$request->guestName.'</td>
+                            <td><strong>Nombre: </strong>'.$request->Name1.'</td>
                         </tr>
                         <tr>
-                            <td><strong>Nombre legal: </strong>'.$request->ownerLegalName.'</td>
-                            <td><strong>Nombre legal: </strong>'.$request->guestLegalName.'</td>
+                            <td><strong>Nombre legal: </strong>'.$request->LegalName1.'</td>
                         </tr>
                         <tr>
-                            <td><strong>Correo: </strong>'.$request->ownerMail.'</td>
-                            <td><strong>Correo: </strong>'.$request->guestMail.'</td>
+                            <td><strong>Correo: </strong>'.$request->Mail1.'</td>
                         </tr>
                         <tr>
-                            <td><strong>RFC: </strong>'.$request->ownerRFC.'</td>
-                            <td><strong>RFC: </strong>'.$request->guestRFC.'</td>
+                            <td><strong>RFC: </strong>'.$request->RFC1.'</td>
                         </tr>
                         <tr>
-                            <td><strong>No. de Serie SCD: </strong>'.$request->ownerSerial.'</td>
-                            <td><strong>No. de Serie SCD: </strong>'.$request->guestSerial.'</td>
+                            <td><strong>No. de Serie SCD: </strong>'.$request->Serial1.'</td>
                         </tr>
                         <tr>
                             <td><strong>Firma Digital: </strong></td>
-                            <td><strong>Firma Digital: </strong></td>
                         </tr>
                         <tr>
-                            <td><textarea rows="10" cols="50" class="form-control" placeholder="">'.$request->ownerSignature.'</textarea></td>
-                            <td><textarea rows="10" cols="50" class="form-control" placeholder="">'.$request->guestSignature.'</textarea></td>
+                            <td><textarea class="form-control" placeholder="">'.$request->Signature1.'</textarea></td>
                         </tr>
                     </tbody>
                 </table>
-                ';
-		// $pdf_file = realpath($request->fileName);
+            ';
+        }
+        if(isset($request->Name2)){
+            $html .= '
+            <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nombre: </strong>'.$request->Name2.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre legal: </strong>'.$request->LegalName2.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo: </strong>'.$request->Mail2.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFC: </strong>'.$request->RFC2.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No. de Serie SCD: </strong>'.$request->Serial2.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firma Digital: </strong></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" placeholder="">'.$request->Signature2.'</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            ';
+        }
+        if(isset($request->Name3)){
+            $html .= '
+            <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nombre: </strong>'.$request->Name3.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre legal: </strong>'.$request->LegalName3.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo: </strong>'.$request->Mail3.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFC: </strong>'.$request->RFC3.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No. de Serie SCD: </strong>'.$request->Serial3.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firma Digital: </strong></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" placeholder="">'.$request->Signature3.'</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            ';
+        }
+        if(isset($request->Name4)){
+            $html .= '
+            <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nombre: </strong>'.$request->Name4.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre legal: </strong>'.$request->LegalName4.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo: </strong>'.$request->Mail4.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFC: </strong>'.$request->RFC4.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No. de Serie SCD: </strong>'.$request->Serial4.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firma Digital: </strong></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" placeholder="">'.$request->Signature4.'</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            ';
+        }
+        if(isset($request->Name5)){
+            $html .= '
+            <table>
+                    <tbody>
+                        <tr>
+                            <td><strong>Nombre: </strong>'.$request->Name5.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre legal: </strong>'.$request->LegalName5.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo: </strong>'.$request->Mail5.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFC: </strong>'.$request->RFC5.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>No. de Serie SCD: </strong>'.$request->Serial5.'</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firma Digital: </strong></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" placeholder="">'.$request->Signature5.'</textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            ';
+        }
+
+
+
 		$dompdf = new Dompdf();
 		$dompdf->loadHtml($html);
 		$dompdf->setPaper('letter', 'portrait');
 		$dompdf->render();
-        file_put_contents('doc2.pdf', $dompdf->output());
+        file_put_contents('storage/'.$this->getUserFolder() .'/'.'anexo.pdf', $dompdf->output());
 
         $pdf = new Fpdi();
         $pagecount = $pdf->setSourceFile('storage/'.$request->fileName);
@@ -92,34 +206,39 @@ class SignatureController extends Controller
         $pdf->AddPage('P', 'Letter');
         // $tplIdx = $pdf->importPage($pagecount);
         // $pdf->useTemplate($tplIdx);
-        $pdf->setSourceFile("doc2.pdf");
+        $pdf->setSourceFile('storage/'.$this->getUserFolder() .'/'.'anexo.pdf');
         $tplIdx = $pdf->importPage(1);
         $pdf->useTemplate($tplIdx);
-        $pdf->Output();
+        $pdf->Output('storage/'.$this->getUserFolder() .'/' .$request->contractName.'.pdf', 'F');
+
+        Signed::create([
+            'url' => 'storage/'.$this->getUserFolder() .'/' .$request->contractName.'.pdf',
+            'user_id' => Auth::user()->id,
+            'contract_id' => $request->contractId
+        ]);
 
 
-		// $pdf = new Fpdi();
-        // $pdf->AddPage('P', 'Letter');
-        // $pagecount = $pdf->setSourceFile('storage/'.$request->fileName);
-        // $pdf->setSourceFile('storage/'.$request->fileName);
-		// $tplIdx = $pdf->importPage($pagecount);
-		// $pdf->useTemplate($tplIdx);
-		// $pdf->setSourceFile("doc2.pdf");
-		// $tplIdx = $pdf->importPage(1);
-        // $pdf->useTemplate($tplIdx);
-        // $pdf->Output();
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+        $signeds = Signed::whereUserId(Auth::user()->id);
 
+        Toastr::success('Tu documento ha sido firmado.','Bien');
 
-        // $pdf = new Fpdi();
+        return view('dashboard', compact('files', 'contracts', 'signeds'));
+    }
 
-        // $pagecount = $pdf->setSourceFile('storage/'.$request->fileName);
-        // for($i=0; $i<$pagecount; $i++){
-        //     $pdf->AddPage();
-        //     $tplidx = $pdf->importPage($i+1, '/MediaBox');
-        //     $pdf->useTemplate($tplidx, 10, 10, 200);
-        // }
+    public function saveImg($id)
+    {
+        $file = Signed::find($id);
+        $download = $file->url;
 
-        // $pdf->addPage();
-        // $pdf->Output();
+        return response()->download($download);
+    }
+
+    private function getUserFolder()
+    {
+        return str_replace(' ', '-', Auth::id() . '-' . Auth::user()->name);
     }
 }

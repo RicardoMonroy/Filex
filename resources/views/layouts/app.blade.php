@@ -47,6 +47,9 @@
         <link href="{{ asset('backend/css/fonts/fontawesome/css/all.css') }}" rel="stylesheet">
 
         <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+
+        <!-- 1. Include required files. -->
+        <script src="{{ asset('dist/pspdfkit.js') }}"></script>
     </head>
     <!-- In the PHP version you can set the following options from the config file -->
     <!--
@@ -88,10 +91,10 @@
                             <a href="{{ route('contracts.index') }}" class="{{ $activePage == 'contracts' ? ' active' : '' }}"><i class="fas fa-file-contract"></i>Mis Contratos</a>
                         </li>
 
-                        <li>
+                        {{-- <li>
                             <h2 class="sidebar-header">Información</h2>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a href="#" class="menu-link"><i class="fa fa-gear"></i>Tipos de Firmas</a>
                             <ul>
                                 <li>
@@ -101,8 +104,8 @@
                                     <a href="page_comp_carousel.html">Digital</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li>
+                        </li> --}}
+                        {{-- <li>
                             <a href="#" class="menu-link"><i class="fa fa-file"></i>Aspectos Legales</a>
                             <ul>
                                 <li>
@@ -118,14 +121,18 @@
                                     <a href="page_ready_pricing_tables.html">Ascpecto 4</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                         <li>
                             <h2 class="sidebar-header">Administración</h2>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-envelope-o"></i>Mi Perfil</a>
+                            <a href="{{ route('profile.edit') }}" class="{{ $activePage == 'profile' ? ' active' : '' }}"><i class="fa fa-envelope-o"></i>Mi Perfil</a>
                         </li>
-                        <li class="{{ $activePage == 'slider' ? ' active' : '' }}">
+                        @can('admin.landing')
+                        <li class="{{ $activePage == 'slider' ||
+                                      $activePage == 'about' ||
+                                      $activePage == 'documents' ||
+                                      $activePage == 'contact' ? ' active' : '' }}">
                             <a href="#" class="menu-link"><i class="fa fa-paper-plane"></i>LandignPage</a>
                             <ul>
                                 <li>
@@ -135,13 +142,14 @@
                                     <a href="{{ route('about.edit', 1) }}" class="{{ $activePage == 'about' ? ' active' : '' }}">Nosotros</a>
                                 </li>
                                 <li>
-                                    <a href="#">Planes</a>
+                                    <a href="{{ route('document.index') }}" class="{{ $activePage == 'documents' ? ' active' : '' }}">Documentos</a>
                                 </li>
                                 <li>
-                                    <a href="#">Contacto</a>
+                                    <a href="{{ route('contact.edit', 1) }}" class="{{ $activePage == 'contact' ? ' active' : '' }}">Contacto</a>
                                 </li>
                             </ul>
                         </li>
+                        @endcan
 
                     </ul>
                     <!-- END Sidebar Navigation -->
@@ -411,6 +419,8 @@
 
         <!-- ckeditor.js, load it only in the page you would like to use CKEditor -->
         <script src="{{ asset('backend/js/ckeditor/ckeditor.js') }}"></script>
+
+        @stack('js')
 
         <!-- Javascript code only for this page -->
         {{-- <script>

@@ -14,32 +14,32 @@ class SlidersTableSeeder extends Seeder
     {
         DB::table('sliders')->insert([
             'title' => '¡Olvidate de los papeles!',
-            'subtitle' => 'Filex, gestión de firmas digitales.',
-            'paragraph' => 'lorem ipsum',
+            'subtitle' => 'Una plataforma para firmar tus documentos',
+            'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner1.png',
             'margin' => 'center'
         ]);
 
         DB::table('sliders')->insert([
             'title' => 'Filex',
-            'subtitle' => 'Un lugar para firmar tus documentos.',
-            'paragraph' => 'lorem ipsum',
+            'subtitle' => 'Una plataforma para firmar tus documentos',
+            'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner2.png',
             'margin' => 'left'
         ]);
 
         DB::table('sliders')->insert([
-            'title' => 'No corras riesgos',
-            'subtitle' => 'Utililiza Filex.',
-            'paragraph' => 'lorem ipsum',
+            'title' => 'Filex',
+            'subtitle' => 'Una plataforma para firmar tus documentos',
+            'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner3.png',
             'margin' => 'right'
         ]);
 
         DB::table('sliders')->insert([
-            'title' => 'Aqui podras encontrar',
-            'subtitle' => 'Los mejores planes',
-            'paragraph' => 'Texto informativo',
+            'title' => 'Filex',
+            'subtitle' => 'Una plataforma para firmar tus documentos',
+            'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner4.png',
             'margin' => 'center'
         ]);

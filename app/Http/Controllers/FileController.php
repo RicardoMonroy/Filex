@@ -8,6 +8,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use setasign\Fpdi\Tcpdf\Fpdi;
 
 class FileController extends Controller
 {
@@ -152,6 +153,23 @@ class FileController extends Controller
             Toastr::warning('Lo lamentamos, no sabemos que pasó.','Algo salió mal');
             return redirect()->route('files.index');
         }
+    }
+
+    public function presign($id)
+    {
+        $file = File::find($id);
+        $user = Auth::user();
+        // $pdf = file_get_contents('storage/'.$file->file);
+        // echo base64_encode($pdf);
+
+
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('files.presing', compact('files', 'file', 'contracts'));
     }
 
     private function allExtensions()

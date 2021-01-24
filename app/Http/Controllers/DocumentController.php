@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract;
+use App\Document;
+use App\File;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends Controller
 {
@@ -13,7 +18,13 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        //
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+        $documents = Document::all();
+
+        return view('landing.documents.index', compact('documents', 'files', 'contracts'));
     }
 
     /**
@@ -23,7 +34,12 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        //
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+
+        return view('landing.documents.create', compact('files', 'contracts'));
     }
 
     /**
@@ -34,7 +50,18 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
+        $contracts = Contract::where('owner_id', Auth::user()->id)
+            ->orWhere('guest_id', Auth::user()->id)
+            ->get();
+        $document = new Document();
+        $document::create([
+            'name' => $request->name,
+            'about_id' => 1
+        ]);
+
+        Toastr::success('Se añadió un nuevo documento','Bien hecho!');
+        return redirect()->route('document.index', compact('files', 'contracts'));
     }
 
     /**
@@ -79,6 +106,11 @@ class DocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $document = Document::findOrFail($id);
+
+        $document->delete();
+
+        Toastr::warning('Ya no lo veremos por aqui.','Banner borrado');
+        return redirect()->route('document.index');
     }
 }

@@ -21,19 +21,19 @@
                     <!-- Inner Grid 1 -->
                     <div class="row">
                         <div class="col-xs-6">
-                            <a href="page_comp_charts.html" class="header-link">
+                            <a href="{{ route('files.index') }}" class="header-link">
                                 <h1 class="animation-pullDown">
                                     <strong>{{ $files->count() }}</strong><br><small>Archivos</small>
                                 </h1>
                             </a>
                         </div>
-                        {{-- <div class="col-xs-6">
-                            <a href="page_comp_charts.html" class="header-link">
+                        <div class="col-xs-6">
+                            <a href="{{ route('contracts.index') }}" class="header-link">
                                 <h1 class="animation-pullDown">
-                                    <strong>$795</strong><br><small>Profit Today</small>
+                                    <strong>{{ $contracts->count() }}</strong><br><small>Contratos</small>
                                 </h1>
                             </a>
-                        </div> --}}
+                        </div>
                     </div>
                     <!-- END Inner Grid 1 -->
                 </div>
