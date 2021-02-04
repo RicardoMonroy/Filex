@@ -138,11 +138,40 @@
 
             <!-- Quick Stats Content -->
             <div class="row">
+                {{-- <section>
+                    <div class="product">
+                      <img
+                        src="https://i.imgur.com/EHyR2nP.png"
+                        alt="The cover of Stubborn Attachments"
+                      />
+                      <div class="description">
+                        <h3>Stubborn Attachments</h3>
+                        <h5>$20.00</h5>
+                      </div>
+                    </div>
+                    <button type="button" id="checkout-button">Checkout</button>
+                  </section> --}}
+
                 <div class="col-sm-6">
                     <div class="pie-chart block-section" data-percent="10" data-size="150">
                         <span>1<small>/10</small> <strong></strong></span>
                     </div>
+                    {{-- <form id="payment-form" action="{{ route('payments.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="plan" id="plan" value="{{ request('plan') }}">
+                        <div class="form-group">
+                            <label for="">Name</label>
+                            <input type="text" name="name" id="card-holder-name" class="form-control" value="" placeholder="Name on the card">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Card details</label>
+                            <div id="card-element"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" id="card-button" >Pay</button>
+                    </form> --}}
                 </div>
+
                 <div class="col-sm-6">
                     <div class="pie-chart block-section" data-percent="0" data-size="150">
                         <span>0<small>/10</small> <strong></strong></span>
@@ -157,4 +186,75 @@
 <!-- END Dashboard Content -->
 @endsection
 
-{{-- // TODO: Pasar títuos de content al layout --}}
+@push('js')
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe("pk_test_51Hfv21KYWi6uPg51qSrnFM7VkEG2pals0wSZGDf9JHgZUr5zPJzm1c0WWqe9LoBCTKaSXLs1OXB1eDI4G5KWr69500w3nrBKGS");
+        var checkoutButton = document.getElementById("checkout-button");
+        checkoutButton.addEventListener("click", function () {
+        fetch("/create-checkout-session.php", {
+            method: "POST",
+        })
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (session) {
+            return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+            // If redirectToCheckout fails due to a browser or network
+            // error, you should display the localized error message to your
+            // customer using error.message.
+            if (result.error) {
+                alert(result.error.message);
+            }
+            })
+            .catch(function (error) {
+            console.error("Error:", error);
+            });
+        });
+    </script>
+
+    <script>
+        const stripe = Stripe('{{ config('cashier.key') }}')
+
+        const elements = stripe.elements()
+        const cardElement = elements.create('card')
+
+        cardElement.mount('#card-element')
+
+        const form = document.getElementById('payment-form')
+        const cardBtn = document.getElementById('card-button')
+        const cardHolderName = document.getElementById('card-holder-name')
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            cardBtn.disabled = true
+            const { setupIntent, error } = await stripe.confirmCardSetup(
+                cardBtn.dataset.secret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: cardHolderName.value
+                        }
+                    }
+                }
+            )
+
+            if(error) {
+                cardBtn.disable = false
+            } else {
+                let token = document.createElement('input')
+
+                token.setAttribute('type', 'hidden')
+                token.setAttribute('name', 'token')
+                token.setAttribute('value', setupIntent.payment_method)
+
+                form.appendChild(token)
+
+                form.submit();
+            }
+        })
+    </script>
+@endpush

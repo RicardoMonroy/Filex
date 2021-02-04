@@ -20,7 +20,7 @@ class DocumentController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $documents = Document::all();
 
@@ -36,7 +36,7 @@ class DocumentController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('landing.documents.create', compact('files', 'contracts'));
@@ -52,7 +52,7 @@ class DocumentController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $document = new Document();
         $document::create([

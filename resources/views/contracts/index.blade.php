@@ -88,7 +88,7 @@
                             <th>Nombre</th>
                             <th>Archivo</th>
                             <th>Firmado por</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,10 +103,11 @@
                             </td>
                             <td class="text-center"  style="vertical-align:middle;">
                                 <div class="btn-group">
+
                                     <div class="col-md-4">
-                                        <a href="{{ route('contracts.presign', $contract->id) }}" data-toggle="tooltip" title="Firmar Documento" class="btn btn-xs btn-default"><i class="fa fa-pencil-square"></i></a>
+                                        <a href="{{ route('contracts.presign', $contract->id) }}" data-toggle="tooltip" title="Firmar Documento" class="btn btn-sm btn-default"><i class="fa fa-pencil-square"></i></a>
                                     </div>
-                                    <div class="col-md-4">
+                                    {{-- <div class="col-md-4">
                                         <a href="{{ route('contracts.show', $contract->id) }}" data-toggle="tooltip" title="Reenviar invitación" class="btn btn-xs btn-default"><i class="fa fa-paper-plane"></i></a>
                                     </div>
                                     <div class="col-md-4">
@@ -116,7 +117,7 @@
                                             @method('DELETE')
                                             <button type="submit" data-toggle="tooltip" title="Eliminar" class="btn btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                         </form>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </td>
                         </tr>

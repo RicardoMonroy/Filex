@@ -1,0 +1,55 @@
+/ * Stripe CSS * /
+.StripeElement {
+  tamaño de caja: caja de borde;
+  altura: 40px;
+  relleno: 10px 12px;
+  borde: 1px sólido transparente;
+  radio del borde: 4px;
+  color de fondo: blanco;
+  caja de sombra: 0 1px 3px 0 # e6ebf1;
+  -webkit-transición: caja-sombra 150ms facilidad;
+  transición: caja-sombra 150ms facilidad;
+}
+
+.StripeElement - foco {
+  caja de sombra: 0 1px 3px 0 # cfd7df;
+}
+
+.StripeElement - inválido {
+  color del borde: # fa755a;
+}
+
+.StripeElement - webkit-autofill {
+  color de fondo: # fefde5! important;
+}
+.form-row {
+  ancho: 65%;
+  flotador izquierdo;
+}
+formulario # pago-formulario {
+  fondo: # f7f8f9;
+  relleno: 50px;
+}
+button # st-btn {
+  ancho: 32%;
+  relleno: 11px;
+  margen izquierdo: 10px;
+  margen superior: 21px;
+  fondo: # 43458b;
+  borde: ninguno;
+  color: #fff;
+  altura: 42px;
+  altura de línea: 40px;
+  relleno: 0 14px;
+  caja-sombra: 0 4px 6px rgba (50, 50, 93, 0.11), 0 1px 3px rgba (0, 0, 0, 0.08);
+  radio del borde: 4px;
+  tamaño de fuente: 15px;
+  peso de fuente: 600;
+  espaciado entre letras: 0.025em;
+  cursor: puntero;
+}
+div # card-errors {
+  relleno: 6px 0;
+  color: # fa755a;
+  peso de fuente: 600;
+}

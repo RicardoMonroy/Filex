@@ -21,7 +21,7 @@ class SliderController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $sliders = Slider::all();
 
@@ -37,7 +37,7 @@ class SliderController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('landing.sliders.create', compact('files', 'contracts'));
@@ -54,7 +54,7 @@ class SliderController extends Controller
         // dd('store');
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $slider = new Slider;
 
@@ -84,7 +84,7 @@ class SliderController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $slider = Slider::find($id);
 
@@ -101,7 +101,7 @@ class SliderController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $slider = Slider::find($id);
 

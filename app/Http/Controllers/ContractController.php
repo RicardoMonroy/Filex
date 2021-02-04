@@ -7,6 +7,7 @@ use App\File;
 use App\Mail\SendInvitation;
 use App\User;
 use App\Signature;
+use App\Signed;
 use Brian2694\Toastr\Facades\Toastr;
 use Exception;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class ContractController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('contracts.index', compact('files', 'contracts'));
@@ -44,7 +45,7 @@ class ContractController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('contracts.create', compact('files', 'contracts'));
@@ -141,7 +142,7 @@ class ContractController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         $contract = Contract::find($id);
@@ -176,9 +177,27 @@ class ContractController extends Controller
         // $serialOwner = $this->hexToStr($ownerSignature->serialNumber);
         // $serialGuest = $this->hexToStr($guestSignature->serialNumber);
 
+        // dd($contractId);
+        // $firma = Signed::whereUserId(Auth::user()->id);
+        $signed = Signed::where('contract_id', $contractId)
+            ->Where('user_id', Auth::user()->id)
+            ->get();
+        // dd($signed);
+        $active = 0;
         $signatures = $contract->signatures;
+        if(isset($signatures)){
+            foreach($signatures as $signature){
+                if($signature->user_id == Auth::user()->id){
+                    $active = 1;
+                    if(!isset($signed)){
+                        $active = 0;
+                    }
+                }
 
-        return view('contracts.show', compact('signatures','contracts', 'contract', 'files', 'ownerSignature', 'guestSignature', 'serialOwner', 'serialGuest'));
+            }
+        }
+
+        return view('contracts.show', compact('signatures','contracts', 'contract', 'files', 'ownerSignature', 'guestSignature', 'serialOwner', 'serialGuest', 'active'));
     }
 
     /**
@@ -219,7 +238,7 @@ class ContractController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         $doc = File::find($id);
@@ -238,7 +257,7 @@ class ContractController extends Controller
         // dd($request->all());
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         $owner = Auth::user();
@@ -323,7 +342,7 @@ class ContractController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         $contract = Contract::find($id);
@@ -399,7 +418,7 @@ class ContractController extends Controller
 
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
-        Toastr::success('Firma exitoza.','Bien');
+        Toastr::success('Firma exitosa.','Bien');
         return redirect()->route('contracts.index', compact('files'));
     }
 

@@ -63,7 +63,7 @@ class ContactController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         $contact = Contact::find($id);

@@ -58,4 +58,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('about', 'AboutController')->middleware('permission:admin.landing');
     Route::resource('document', 'DocumentController')->middleware('permission:admin.landing');
     Route::resource('contact', 'ContactController')->middleware('permission:admin.landing');
+
+
+    Route::get('plans', 'SubscriptionController@index')->name('plans');
+    Route::get('/payments', 'PaymentController@index')->name('payments');
+    Route::post('/payments', 'PaymentController@store')->name('payments.store');
+
+    // Pagos
+    Route::post('stripe-payment', 'PaymentController@store')->name('stripe.store');
 });

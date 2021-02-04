@@ -29,11 +29,21 @@ class HomeController extends Controller
     {
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
         $signeds = Signed::where('user_id', Auth::user()->id)->get();
         // dd($signeds);
 
-        return view('dashboard', compact('files', 'contracts', 'signeds'));
+        \Stripe\Stripe::setApiKey('sk_test_51Hfv21KYWi6uPg51VXmXk412Gi5xPSw2rFT972JdPkLxvWuvV9bpOzfP8f1m4zwWDWlecLKzeNOIkkz04zDPf0xG00fKN1WTlS');
+
+        $products = \Stripe\Product::all();
+        $clients = \Stripe\Customer::all();
+        $price = \Stripe\Price::all();
+
+        // dd($price);
+
+
+        return view('dashboard', compact('files', 'contracts', 'signeds', 'products'));
     }
 }
+

@@ -186,10 +186,18 @@
                 <div class="block-title clearfix">
                     <h2 class="pull-left">Métodos de Págo</h2>
                 </div>
-
+                @can('payForThis', Auth::user())
+                    <h4>Al ser Cliente, puedes pagar cualquier modalidad según sea tu necesidad.</h4>
+                @else
+                    <h4>Al ser Administrador no es necesario suscribirse a cualquier plan.</h4>
+                @endcan
             </div>
         </div>
     </div>
 </div>
 
 @endsection
+
+@push('js')
+
+@endpush

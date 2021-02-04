@@ -159,7 +159,10 @@
         <div class="clearfix">
             <input type="hidden" name="fileName" id="fileName" value="{{ $contract->file->file }}">
             {{-- <iframe width="100%" height="800" src="{{ asset('storage') }}/{{ $contract->file->file }}" frameborder="0"></iframe> --}}
-        <button type="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-check"></i> Generar PDF</button>
+            @if ($active)
+                <button type="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-check"></i> Generar PDF</button>
+            @endif
+
         </div>
     </form>
 </div>

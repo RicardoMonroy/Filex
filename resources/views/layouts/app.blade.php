@@ -14,7 +14,7 @@
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="img/favicon.ico">
+        <link href="{{ asset('frontend/images/favicon.ico') }}" rel="icon">
         <link rel="apple-touch-icon" href="{{ asset('backend/img/icon57.png') }}" sizes="57x57">
         <link rel="apple-touch-icon" href="{{ asset('backend/img/icon72.png') }}" sizes="72x72">
         <link rel="apple-touch-icon" href="{{ asset('backend/img/icon76.png') }}" sizes="76x76">
@@ -38,6 +38,7 @@
 
         <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
         <link rel="stylesheet" href="{{ asset('backend/css/themes.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('backend/css/stripe.css') }}"> --}}
         <!-- END Stylesheets -->
 
         <!-- Modernizr (Browser feature detection library) & Respond.js (Enable responsive CSS code on browsers that don't support it, eg IE8) -->
@@ -50,6 +51,9 @@
 
         <!-- 1. Include required files. -->
         <script src="{{ asset('dist/pspdfkit.js') }}"></script>
+
+        <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+        <script src="https://js.stripe.com/v3/"></script>
     </head>
     <!-- In the PHP version you can set the following options from the config file -->
     <!--
@@ -89,6 +93,9 @@
                         </li>
                         <li>
                             <a href="{{ route('contracts.index') }}" class="{{ $activePage == 'contracts' ? ' active' : '' }}"><i class="fas fa-file-contract"></i>Mis Contratos</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('plans') }}" class="{{ $activePage == 'Plans' ? ' active' : '' }}"><i class="fas fa-columns"></i>Planes</a>
                         </li>
 
                         {{-- <li>

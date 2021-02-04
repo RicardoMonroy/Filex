@@ -29,7 +29,7 @@ class FileController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('files.index', compact('files', 'contracts'));
@@ -45,7 +45,7 @@ class FileController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('files.create', compact('files', 'contracts'));
@@ -97,7 +97,7 @@ class FileController extends Controller
         $file = File::find($id);
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('files.show', compact('file', 'files', 'contracts'));
@@ -166,7 +166,7 @@ class FileController extends Controller
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
 
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
 
         return view('files.presing', compact('files', 'file', 'contracts'));

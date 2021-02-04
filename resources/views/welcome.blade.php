@@ -112,9 +112,18 @@
                     {{-- <li class="nav-item">
                         <a class="nav-link scroll" href="#blog">Blog</a>
                     </li> --}}
-                    <li class="get-started-btn">
-                        <a href="" class="btn btn-medium btn-rounded btn-blue btn-hvr-strongBlue btn-hvr-up d-lg-none" data-animation-duration="500" data-fancybox data-src="#animatedModal">Get Started</a>
-                    </li>
+                    @if (Route::has('login'))
+                        <div class="top-right links">
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="btn btn-large btn-rounded btn-strongBlue btn-hvr-up btn-hvr-blue">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="btn btn-large btn-rounded btn-strongBlue btn-hvr-up btn-hvr-blue">Acceder</a>
+                                {{-- @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="btn btn-large btn-rounded btn-strongBlue btn-hvr-up btn-hvr-blue" >Registro</a>
+                                @endif --}}
+                            @endauth
+                        </div>
+                    @endif
                 </ul>
             </nav>
 
@@ -780,7 +789,7 @@
             </div>
         </div>
         <div class="row padding-top">
-            <!-- Plan-1 -->
+            {{-- <!-- Plan-1 -->
                 <div class="col-lg-6 col-md-12 col-sm-12 price-strongBlue wow fadeInLeft" data-wow-delay="300ms">
                     <div class="pricing-item">
                         <h3 class="pb-3 main-font font-24 text-blue">Básico</h3>
@@ -798,16 +807,16 @@
                         <a href="{{ route('login') }}" class="btn btn-large strongBlue-long-btn rounded-pill w-100 btn-hvr-up portfolio-btn-strongBlue">Registrarme</a>
                     </div>
                 </div>
-            <!-- Plan-2 -->
-            @foreach ($plans as $plan)
+            <!-- Plan-2 --> --}}
+            @foreach ($products as $product)
 
-
+            {{-- {{ dd($product) }} --}}
             <div class="col-lg-6 col-md-12 col-sm-12 price-blue wow fadeInUp" data-wow-delay="500ms">
                 <div class="pricing-item">
-                    <h3 class="pb-3 main-font font-24 text-strongBlue">{{ $plan->nickname ? '$plan->nickname' : 'Premium' }}</h3>
-                    <div class="pricing-price d-flex"><sup class="price-dollar text-blue">$</sup> <span class="pricing-currency text-blue">{{ $plan->amount/100 }}
-                        <span class="d-block alt-font font-weight-200 font-10 text-center">{{$plan->currency }} / {{ $plan->interval }}</span></span>
-                        <p class="pricing-para text-grey ml-3">Tarfa plana, sujeto a cambios</p>
+                    <h3 class="pb-3 main-font font-24 text-strongBlue">{{ $product->name }}</h3>
+                    <div class="pricing-price d-flex"><sup class="price-dollar text-blue">$</sup> <span class="pricing-currency text-blue">{{ $product->amount/100 }}
+                        <span class="d-block alt-font font-weight-200 font-10 text-center">{{$product->currency }} / {{ $product->interval }}</span></span>
+                        <p class="pricing-para text-grey ml-3">{{ $product->description }}</p>
                     </div>
                     <ul class="pricing-list mb-0">
                         <li><i class="fa fa-check" aria-hidden="true"></i> Firma de documentos.</li>
@@ -820,7 +829,7 @@
                 </div>
             </div>
             @endforeach
-            <!-- Plan-3 -->
+            <!-- plan-3 -->
             {{-- <div class="col-lg-4 col-md-12 col-sm-12 price-strongBlue wow fadeInRight" data-wow-delay="300ms">
                 <div class="pricing-item">
                     <h3 class="pb-3 main-font font-24 text-blue">Advance</h3>
@@ -877,7 +886,7 @@
                         <p class="text-strongBlue font-weight-200 font-20">Últimas novedades</p>
                         <h1 class="main-font font-weight-600 text-black margin-top">Tu guía juridica</h1>
                         <p class="font-15 alt-font font-weight-normal text-grey margin-top">Echa un vistazo a nuestra sección de noticias, te ayudaremos con lo relacionado a tus contratos.</p>
-                        <a href="frontend/blog.html" class="mt-3 btn btn-medium btn-rounded btn-blue btn-hvr-up btn-hvr-strongBlue">Ver el Blog</a>
+                        <a href="#" class="mt-3 btn btn-medium btn-rounded btn-blue btn-hvr-up btn-hvr-strongBlue">Próximamente...</a>
                     </div>
                 </div>
             </div>

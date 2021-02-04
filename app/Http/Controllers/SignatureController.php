@@ -10,6 +10,7 @@ use Dompdf\Dompdf;
 use Elibyy\TCPDF\TCPDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use setasign\Fpdi\Fpdi;
 use setasign\Fpdi\Tfpdf\Fpdi as TfpdfFpdi;
 
@@ -193,7 +194,12 @@ class SignatureController extends Controller
 		$dompdf = new Dompdf();
 		$dompdf->loadHtml($html);
 		$dompdf->setPaper('letter', 'portrait');
-		$dompdf->render();
+        $dompdf->render();
+
+        if(!file_exists('/public/' . $this->getUserFolder())) {
+            Storage::makeDirectory('/public/' . $this->getUserFolder());
+        }
+
         file_put_contents('storage/'.$this->getUserFolder() .'/'.'anexo.pdf', $dompdf->output());
 
         $pdf = new Fpdi();
@@ -220,13 +226,13 @@ class SignatureController extends Controller
 
         $files = File::whereUserId(Auth::user()->id)->OrderBy('id', 'desc')->get();
         $contracts = Contract::where('owner_id', Auth::user()->id)
-            ->orWhere('guest_id', Auth::user()->id)
+            ->orWhere('signer_two_mail', Auth::user()->email)
             ->get();
-        $signeds = Signed::whereUserId(Auth::user()->id);
+        // $signeds = Signed::whereUserId(Auth::user()->id);
 
-        Toastr::success('Tu documento ha sido firmado.','Bien');
+        Toastr::success('Tu documento ha sido firmado. En tu Dashboard tendrás un historial de documentos firmados','Bien');
 
-        return view('dashboard', compact('files', 'contracts', 'signeds'));
+        return view('contracts.index', compact('files', 'contracts'));
     }
 
     public function saveImg($id)
