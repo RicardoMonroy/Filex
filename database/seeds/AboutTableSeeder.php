@@ -12,10 +12,10 @@ class AboutTableSeeder extends Seeder
     public function run()
     {
         DB::table('abouts')->insert([
-            'title' => 'Con Filex',
-            'subtitleLeft' => 'Podras firmar',
+            'title' => 'Con FILEX',
+            'subtitleLeft' => 'Podrás firmar',
             'subtitleRight' => 'de forma digital',
-            'paragraph' => 'FILEX® es una plataforma 100% mexicana para la firma de documentos legales con firma electrónica, de una manera fácil, segura y legal.',
+            'paragraph' => 'FILEX es una plataforma 100% mexicana para la firma de documentos legales con firma electrónica, de una manera fácil, segura y legal.',
             'picture' => 'Images/Brand1.png'
         ]);
     }
