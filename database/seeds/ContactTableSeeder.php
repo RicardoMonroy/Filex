@@ -13,7 +13,7 @@ class ContactTableSeeder extends Seeder
     public function run()
     {
         DB::table('contacts')->insert([
-            'paragraph' => 'Puedes ponerte en contacto con nosotros, podemos resolver tus dudas.',
+            'paragraph' => 'Puedes ponerte en contacto con nosotros y nuestro equipo de expertos legales y tecnológicos resolverán tus dudas y/o atenderán tus comentarios.',
             'address' => '123 calle CDMX, México.',
             'addressPhone' => '555 5 123 152',
             'addressMovil' => '444 2 123 456',
