@@ -13,7 +13,7 @@ class SlidersTableSeeder extends Seeder
     public function run()
     {
         DB::table('sliders')->insert([
-            'title' => '¡Olvidate de los papeles!',
+            'title' => '¡Olvídate de los papeles!',
             'subtitle' => 'Una plataforma para firmar tus documentos',
             'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner1.png',
@@ -21,7 +21,7 @@ class SlidersTableSeeder extends Seeder
         ]);
 
         DB::table('sliders')->insert([
-            'title' => 'Filex',
+            'title' => 'FILEX',
             'subtitle' => 'Una plataforma para firmar tus documentos',
             'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner2.png',
@@ -29,7 +29,7 @@ class SlidersTableSeeder extends Seeder
         ]);
 
         DB::table('sliders')->insert([
-            'title' => 'Filex',
+            'title' => 'FILEX',
             'subtitle' => 'Una plataforma para firmar tus documentos',
             'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner3.png',
@@ -37,7 +37,7 @@ class SlidersTableSeeder extends Seeder
         ]);
 
         DB::table('sliders')->insert([
-            'title' => 'Filex',
+            'title' => 'FILEX',
             'subtitle' => 'Una plataforma para firmar tus documentos',
             'paragraph' => 'legales con firma electrónica, de forma sencilla y con validez legal',
             'banner' => 'Sliders/Banner4.png',
