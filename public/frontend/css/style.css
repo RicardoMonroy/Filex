@@ -48,6 +48,8 @@
 :root {
     --brandOne: #17abce;
     --brandTwo: #7104D4;
+    --colorBlue: #336EFF;
+    --colorGreen: #65D730;
 }
 
 
@@ -185,9 +187,12 @@ section{padding: 7.5rem 0;}
 .btn.btn-rounded {border-radius: 50px;}
 
 /* Btn-Blue */
+.btn-hvr-green:after {background-color: var(--colorGreen);}
+.btn-hvr-green:hover{border-color: var(--colorGreen);color: #ffffff;}
+
 .btn.btn-blue {background: var(--brandOne); border-color: var(--brandOne); color: #ffffff}
 .btn-hvr-blue:after {background-color: var(--brandOne);}
-.btn-hvr-blue:hover{border-color: var(--brandOne)!important;color: #ffffff;}
+.btn-hvr-blue:hover{border-color: var(--brandOne);color: #ffffff;}
 .blue-long-btn {
     border: solid 1px var(--brandOne);
     color: #FFFFFF !important;
@@ -204,9 +209,12 @@ section{padding: 7.5rem 0;}
 }
 
 /* Btn-strongBlue */
+.btn.dashboard{background: var(--colorBlue); border-color: var(--colorBlue); color: #ffffff; margin: 0 28px;}
+.btn.dashboard:hover{background-color: var(--colorGreen)!important; border-color: var(--colorGreen); color: #ffffff; margin: 0 28px;}
+
 .btn.btn-strongBlue {background: var(--brandTwo); border-color: var(--brandTwo); color: #ffffff; margin: 0 28px;}
 .btn-hvr-strongBlue:after{background-color: var(--brandTwo);}
-.btn-hvr-strongBlue:hover {border-color: var(--brandTwo)!important;color: #ffffff;}
+.btn-hvr-strongBlue:hover {border-color: var(--brandTwo);color: #ffffff;}
 .strongBlue-long-btn {
     border: solid 1px var(--brandTwo);
     color: #FFFFFF !important;
@@ -221,7 +229,14 @@ section{padding: 7.5rem 0;}
     text-decoration: none;
     cursor: pointer;
 }
-
+.btn-collapsed:hover{
+    color: var(--colorGreen);
+    text-decoration: none;
+}
+.btn-collapsed:focus{
+    color: var(--colorBlue)!important;
+    text-decoration: none;
+}
 .btn-hvr-up:hover:after, .btn-hvr-up:active:after {height: 100%;}
 .btn-hvr-up:after {
     content: '';
@@ -1036,7 +1051,7 @@ header a.logo img {
 
 .about-box .about-main-icon i {
     color: var(--brandTwo);
-    font-size: 80px;
+    font-size: 60px;
 }
 
 .about-box h5 {
