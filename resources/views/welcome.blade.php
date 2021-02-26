@@ -496,9 +496,9 @@
             </div>
         </div>
         <!-- About Image -->
-        {{--<div class="d-flex justify-content-center wow bounceInLeft" data-wow-delay="300ms">
+        <div class="d-flex justify-content-center wow bounceInLeft" data-wow-delay="300ms">
             <img src="{{ asset('storage') }}/{{ $about->picture }}" alt="About-Us Plant" width="765">
-        </div>--}}
+        </div>
     </div>
 </section>
 <!-- END ABOUT US -->
