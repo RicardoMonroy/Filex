@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'reset', 'titlePage' => __('Reset Password')])
+@extends('layouts.app', ['titlePage' => __('Reset Password')])
 
 @section('content')
 <div class="container">
