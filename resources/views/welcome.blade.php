@@ -788,7 +788,7 @@
                 <p class="margin-top font-16 alt-font font-weight-normal text-grey">Puedes registrarte de forma gratuita y después elegir un plan.</p>
             </div>
         </div>
-        <div class="row padding-top">
+        <div class="row pt-5">
             {{-- <!-- Plan-1 -->
                 <div class="col-lg-6 col-md-12 col-sm-12 price-strongBlue wow fadeInLeft" data-wow-delay="300ms">
                     <div class="pricing-item">
