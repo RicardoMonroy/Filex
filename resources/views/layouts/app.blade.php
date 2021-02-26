@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Filex | {{ $titlePage}}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
+        <title>Filex | {{ $titlePage }}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
 
         <meta name="description" content="Aplicación Filex, firma de contratos digitales">
         <meta name="author" content="Tooring">
