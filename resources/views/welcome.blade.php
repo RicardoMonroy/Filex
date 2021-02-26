@@ -833,8 +833,8 @@
                     <h3 class="pb-3 main-font font-24 text-strongBlue">Plan FILEX Premium</h3>
                     <div class="pricing-price">
                         <div class="d-flex">
-                            <div class="width-16 d-flex" style="align-items: center;">
-                                <span><sup class="price-dollar text-blue">$</sup></span> <span class="pricing-currency text-blue"> 75 MX</span>
+                            <div class="d-flex" style="align-items: center;">
+                                <span><sup class="price-dollar text-blue">$</sup></span><span class="pricing-currency text-blue width-9"> 75 MX</span>
                             </div>
                             <!-- <span class="d-block alt-font font-weight-200 font-10 text-center"> /  </span> -->
                             <p class="pricing-para text-grey ml-3"> Por documento, cuando se contraten más de 10 documentos (se paga por adelantado).</p>
@@ -1191,7 +1191,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="button" class="btn btn-large strongBlue-long-btn rounded-pill w-100 btn-hvr-up btn-hvr-blue mt-4 contact_btn" id="submit_btn">ENVIAR</button>
+                            <button type="button" class="btn btn-large strongBlue-long-btn rounded-pill w-100 btn-hvr-up btn-hvr-gray mt-4 contact_btn" id="submit_btn">ENVIAR</button>
                         </div>
                     </div>
                 </form>

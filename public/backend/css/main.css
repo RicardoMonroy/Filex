@@ -30,8 +30,8 @@
 ====================================== */
 
 :root {
-    --brand: #7104D4;
-    --hover: #17abce;
+    --brand: #17abce;
+    --hover: #818181;
     --colorBlue: #336EFF;
     --colorGreen: #65D730;
 }
@@ -95,6 +95,9 @@ header.navbar-inverse {
     padding: 0 5px;
     margin: 0 0 10px;
     min-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 header.navbar {
@@ -158,6 +161,7 @@ header.navbar .navbar-brand:focus {
     width: 90px;
     padding: 0 10px;
     outline: 0;
+    border-radius: 50px;
 }
 
 header.navbar .navbar-brand:hover img {
@@ -209,7 +213,7 @@ header.navbar .navbar-brand:hover span {
 
 .nav.header-nav > li.active > a,
 .nav.header-nav > li.open > a {
-    background-color: var(--colorBlue);
+    background-color: var(--brand);
     color: #fff;
 }
 
@@ -429,7 +433,7 @@ header,
 .sidebar-nav li a.active,
 .sidebar-nav li > ul a.active:hover {
     color: #ffffff;
-    background-color: var(--colorBlue);
+    background-color: var(--brand);
 }
 
 .sidebar-nav li span {
@@ -1909,8 +1913,9 @@ a.thumbnail:focus {
 /* Buttons */
 .btn {
     margin: 1px 0;
-    border-radius: 0 !important;
+    border-radius: 0;
 }
+.btn.btn-rounded {border-radius: 50px!important;}
 
 .btn:focus,
 .btn:active,
@@ -2130,7 +2135,19 @@ fieldset[disabled] .btn-primary.active {
 .open .dropdown-toggle.btn-primary {
     background-color: var(--hover);
 }
-
+.btn-blue {
+    background-color: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
+    box-shadow: 0 1px 0 var(--hover);
+}
+.btn-blue:focus,
+.btn-blue:hover {
+    background-color: var(--hover);
+    border-color: var(--hover);
+    color: #fff;
+    box-shadow: none;
+}
 .btn-info,
 .btn-info:hover,
 .btn-info:focus,

@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Filex | {{ $titlePage }}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
+        <title>Filex | {{ $titlePage}}</title> <!-- TODO: Modificar etiquetas Meta de la app -->
 
         <meta name="description" content="Aplicación Filex, firma de contratos digitales">
         <meta name="author" content="Tooring">
@@ -292,6 +292,24 @@
             <!-- If you add the class .navbar-fixed-top remember to add the class .header-fixed-top to <body> element -->
             <!-- If you add the class .navbar-fixed-bottom remember to add the class .header-fixed-bottom to <body> element -->
             <header class="navbar navbar-default navbar-fixed-top">
+
+                <!-- Left Header Navigation -->
+                <ul class="nav header-nav pull-left">
+                    <li>
+                        <a href="javascript:void(0)" id="sidebar-left-toggle">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+                <!-- END Left Header Navigation -->
+
+                <!-- Header Brand -->
+                <a href="{{ route('dashboard') }}" class="navbar-brand">
+                    <img src="{{ asset('backend/img/template/brand.png') }}" alt="Filex">
+                    <span>Filex</span>
+                </a>
+                <!-- END Header Brand -->
+
                 <!-- Right Header Navigation -->
                 <ul class="nav header-nav pull-right">
                     {{-- <li class="dropdown">
@@ -354,23 +372,6 @@
                     </li>
                 </ul>
                 <!-- END Right Header Navigation -->
-
-                <!-- Left Header Navigation -->
-                <ul class="nav header-nav pull-left">
-                    <li>
-                        <a href="javascript:void(0)" id="sidebar-left-toggle">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- END Left Header Navigation -->
-
-                <!-- Header Brand -->
-                <a href="{{ route('dashboard') }}" class="navbar-brand">
-                    <img src="{{ asset('backend/img/template/brand.png') }}" alt="Filex">
-                    <span>Filex</span>
-                </a>
-                <!-- END Header Brand -->
             </header>
             <!-- END Header -->
 

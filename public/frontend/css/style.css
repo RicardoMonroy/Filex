@@ -47,7 +47,7 @@
 
 :root {
     --brandOne: #17abce;
-    --brandTwo: #7104D4;
+    --brandTwo: #818181;
     --colorBlue: #336EFF;
     --colorGreen: #65D730;
 }
@@ -178,7 +178,25 @@ section{padding: 7.5rem 0;}
 .font-weight-700{font-weight: 700;}
 
 /* button */
-.btn {-webkit-appearance: initial; overflow: hidden;position: -webkit-sticky;position: sticky; z-index: 2; display:inline-block; font-size: 16px; border:2px solid transparent; letter-spacing: .5px; line-height: inherit; border-radius: 0; text-transform:capitalize; width: auto;font-family: 'Roboto', sans-serif; font-weight: bold; -webkit-transition: all .5s ease;-o-transition: all .5s ease !important;transition: all .5s ease !important;}
+.btn {
+    -webkit-appearance: initial; 
+    overflow: hidden;
+    position: -webkit-sticky;
+    position: sticky; 
+    z-index: 2; 
+    display:inline-block; 
+    font-size: 16px; 
+    border:2px solid transparent; 
+    letter-spacing: .5px; 
+    line-height: inherit; 
+    border-radius: 0; 
+    text-transform:none; 
+    width: auto;
+    font-family: 'Roboto', sans-serif; 
+    font-weight: bold; 
+    -webkit-transition: all .5s ease;
+    -o-transition: all .5s ease !important;
+    transition: all .5s ease !important;}
 
 /* button size */
 .btn.btn-small {font-size:12px; padding: 4px 1.8em;}
@@ -193,6 +211,8 @@ section{padding: 7.5rem 0;}
 .btn.btn-blue {background: var(--brandOne); border-color: var(--brandOne); color: #ffffff}
 .btn-hvr-blue:after {background-color: var(--brandOne);}
 .btn-hvr-blue:hover{border-color: var(--brandOne);color: #ffffff;}
+.btn-hvr-gray:after {background-color: var(--brandTwo);}
+.btn-hvr-gray:hover {border-color: var(--brandTwo);color: #ffffff;}
 .blue-long-btn {
     border: solid 1px var(--brandOne);
     color: #FFFFFF !important;
@@ -209,16 +229,16 @@ section{padding: 7.5rem 0;}
 }
 
 /* Btn-strongBlue */
-.btn.dashboard{background: var(--colorBlue); border-color: var(--colorBlue); color: #ffffff; margin: 0 28px;}
+.btn.dashboard{background: var(--brandOne); border-color: var(--brandOne); color: #ffffff; margin: 0 28px;}
 .btn.dashboard:hover{background-color: var(--colorGreen)!important; border-color: var(--colorGreen); color: #ffffff; margin: 0 28px;}
 
 .btn.btn-strongBlue {background: var(--brandTwo); border-color: var(--brandTwo); color: #ffffff; margin: 0 28px;}
 .btn-hvr-strongBlue:after{background-color: var(--brandTwo);}
 .btn-hvr-strongBlue:hover {border-color: var(--brandTwo);color: #ffffff;}
 .strongBlue-long-btn {
-    border: solid 1px var(--brandTwo);
+    border: solid 1px var(--brandOne);
     color: #FFFFFF !important;
-    background-color: var(--brandTwo);
+    background-color: var(--brandOne);
     font-size: 14px;
     border-radius: 0.5em;
     text-align: center;
@@ -234,7 +254,7 @@ section{padding: 7.5rem 0;}
     text-decoration: none;
 }
 .btn-collapsed:focus{
-    color: var(--colorBlue)!important;
+    color: var(--brandTwo)!important;
     text-decoration: none;
 }
 .btn-hvr-up:hover:after, .btn-hvr-up:active:after {height: 100%;}
@@ -259,7 +279,8 @@ section{padding: 7.5rem 0;}
 
 /* Text color */
 .text-blue {color: var(--brandOne);}
-.text-strongBlue {color: var(--brandTwo);}
+.text-strongBlue {color: var(--brandOne);}
+/* .text-strongGray {color: var(--brandOne);} */
 .text-black{color: #202020;}
 .text-grey{color: #7e8186;}
 .light-grey{color: #9b9b9b;}
@@ -279,7 +300,7 @@ section{padding: 7.5rem 0;}
 
 .margin-top {margin-top: 30px;}
 .margin-bottom {margin-bottom: 30px;}
-.width-16 { width: 16rem;}
+.width-9 { width: 9rem;}
 
 /*Social Icon Hover Text Hover */
 .facebook-text-hvr:hover{color:#4267B2 !important;}
@@ -1053,7 +1074,7 @@ header a.logo img {
 
 .about-box .about-main-icon i {
     color: var(--brandTwo);
-    font-size: 60px;
+    font-size: 40px;
 }
 
 .about-box h5 {
@@ -1407,8 +1428,8 @@ header a.logo img {
 }
 
 .price-blue .pricing-item:hover {
-    background: var(--brandOne);
-    border-color: var(--brandOne);
+    background: var(--brandTwo);
+    border-color: var(--brandTwo);
 }
 .price-strongBlue .pricing-item:hover {
     background: var(--brandTwo);
