@@ -496,9 +496,9 @@
             </div>
         </div>
         <!-- About Image -->
-        <div class="d-flex justify-content-center wow bounceInLeft" data-wow-delay="300ms">
+        {{--<div class="d-flex justify-content-center wow bounceInLeft" data-wow-delay="300ms">
             <img src="{{ asset('storage') }}/{{ $about->picture }}" alt="About-Us Plant" width="765">
-        </div>
+        </div>--}}
     </div>
 </section>
 <!-- END ABOUT US -->
@@ -736,7 +736,7 @@
                             <img src="frontend/images/testimonial-1.png" alt="student img">
                         </div>
                         <div class="testimonial-tittle mt-3 mb-3">
-                            <h3 class="mb-0 text-black alt-font font-weight-normal font-24">Jaime Ancer, CEO</h3>
+                            <h3 class="mb-0 text-black alt-font font-weight-500 font-24 text-white">Jaime Ancer, CEO</h3>
                         </div>
                     </div>
 
@@ -808,15 +808,15 @@
                     </div>
                 </div>
             <!-- Plan-2 --> --}}
-            @foreach ($products as $product)
+            {{-- @foreach ($products as $product) --}}
 
             {{-- {{ dd($product) }} --}}
             <div class="col-lg-6 col-md-12 col-sm-12 price-blue wow fadeInUp" data-wow-delay="500ms">
                 <div class="pricing-item">
-                    <h3 class="pb-3 main-font font-24 text-strongBlue">{{ $product->name }}</h3>
-                    <div class="pricing-price d-flex"><sup class="price-dollar text-blue">$</sup> <span class="pricing-currency text-blue">{{ $product->amount/100 }}
-                        <span class="d-block alt-font font-weight-200 font-10 text-center">{{$product->currency }} / {{ $product->interval }}</span></span>
-                        <p class="pricing-para text-grey ml-3">{{ $product->description }}</p>
+                    <h3 class="pb-3 main-font font-24 text-strongBlue">Plan FILEX Básico</h3>
+                    <div class="pricing-price pb-4 d-flex"><sup class="price-dollar text-blue">$</sup> <span class="pricing-currency text-blue">100 MX</span>
+                        <!-- <span class="d-block alt-font font-weight-200 font-10 text-center"> / </span> -->
+                        <p class="pricing-para text-grey ml-3">Por documento</p>
                     </div>
                     <ul class="pricing-list mb-0">
                         <li><i class="fa fa-check" aria-hidden="true"></i> Firma de documentos legales de forma electrónica, y paga por cada documento.</li>
@@ -828,7 +828,30 @@
                     <a href="{{ route('login') }}" class="btn btn-large blue-long-btn rounded-pill w-100 btn-hvr-up portfolio-btn-blue">Regístrarme</a>
                 </div>
             </div>
-            @endforeach
+            <div class="col-lg-6 col-md-12 col-sm-12 price-blue wow fadeInUp" data-wow-delay="500ms">
+                <div class="pricing-item">
+                    <h3 class="pb-3 main-font font-24 text-strongBlue">Plan FILEX Premium</h3>
+                    <div class="pricing-price">
+                        <div class="d-flex">
+                            <div class="width-16 d-flex" style="align-items: center;">
+                                <span><sup class="price-dollar text-blue">$</sup></span> <span class="pricing-currency text-blue"> 75 MX</span>
+                            </div>
+                            <!-- <span class="d-block alt-font font-weight-200 font-10 text-center"> /  </span> -->
+                            <p class="pricing-para text-grey ml-3"> Por documento, cuando se contraten más de 10 documentos (se paga por adelantado).</p>
+                        </div>
+                        <p class="text-blue font-weight-200 font-12 text-center mt-2">Inicia tu registro en FILEX y comienza periodo de prueba de 3 documentos gratis.</p>
+                    </div>
+                    <ul class="pricing-list mb-0">
+                        <li><i class="fa fa-check" aria-hidden="true"></i> Firma de documentos legales de forma electrónica, y paga por cada documento.</li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i> Acceso completo a la plataforma.</li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i> Tus datos personales y confidencialidad de documentos se encuentran protegidos mediante [*].</li>
+                            <li><i class="fa fa-check" aria-hidden="true"></i> Asistencia de expertos legales y tecnológicos.</li>
+                            <!-- <li><i class="fa fa-check" aria-hidden="true"></i> Implementar eFirma</li> -->
+                    </ul>
+                    <a href="{{ route('login') }}" class="btn btn-large blue-long-btn rounded-pill w-100 btn-hvr-up portfolio-btn-blue">Regístrarme</a>
+                </div>
+            </div>
+            {{-- @endforeach --}}
             <!-- plan-3 -->
             {{-- <div class="col-lg-4 col-md-12 col-sm-12 price-strongBlue wow fadeInRight" data-wow-delay="300ms">
                 <div class="pricing-item">
