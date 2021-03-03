@@ -1341,10 +1341,10 @@ header a.logo img {
 ====================================== */
 
 .pricing-item {
+    height: 35rem;
     position: relative;
     padding: 2.5rem 1rem;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin: auto;
     -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .12);
     box-shadow: 0 0 10px rgba(0, 0, 0, .12);
     -webkit-transition: all .5s ease;
@@ -1356,6 +1356,9 @@ header a.logo img {
     background: #fff;
     cursor: default;
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .pricing-item .pricing-price {
